@@ -367,13 +367,13 @@
       <Project>{c0360302-964f-4cd8-9c76-2c498b043ae7}</Project>
       <Name>SuggestionSystem.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\SuggestionSystem.Services.Data\SuggestionSystem.Services.Data.csproj">
+      <Project>{5732411a-2759-4b96-a39e-3b8b47317901}</Project>
+      <Name>SuggestionSystem.Services.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SuggestionSystem.Common\SuggestionSystem.Common.csproj">
       <Project>{f72ccae1-3953-45c5-855d-3a8df40a5e81}</Project>
       <Name>SuggestionSystem.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SuggestionSystem.Services.Data\SuggestionSystem.Services.Data.csproj">
-      <Project>{84984644-19ca-4eeb-831a-068820ebae11}</Project>
-      <Name>SuggestionSystem.Services.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
