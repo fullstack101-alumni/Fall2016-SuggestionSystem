@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuggestionSystem.Data
+﻿namespace SuggestionSystem.Data
 {
-    class SuggestionSystemDbContext
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
+
+    public class SuggestionSystemDbContext : IdentityDbContext<User>
     {
+        public SuggestionSystemDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
+        {
+        }
+
+        public static SuggestionSystemDbContext Create()
+        {
+            return new SuggestionSystemDbContext();
+        }
     }
 }

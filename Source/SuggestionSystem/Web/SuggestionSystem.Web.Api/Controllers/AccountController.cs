@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using SuggestionSystem.Web.Api.Models;
 using SuggestionSystem.Web.Api.Providers;
 using SuggestionSystem.Web.Api.Results;
+using SuggestionSystem.Data.Models;
 
 namespace SuggestionSystem.Web.Api.Controllers
 {

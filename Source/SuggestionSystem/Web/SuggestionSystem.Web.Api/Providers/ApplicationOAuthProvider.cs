@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using SuggestionSystem.Web.Api.Models;
+using SuggestionSystem.Data.Models;
 
 namespace SuggestionSystem.Web.Api.Providers
 {

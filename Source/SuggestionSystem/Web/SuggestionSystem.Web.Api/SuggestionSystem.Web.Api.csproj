@@ -318,6 +318,16 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\SuggestionSystem.Data.Models\SuggestionSystem.Data.Models.csproj">
+      <Project>{268ba3eb-0f58-4574-bf0b-3340b2f8661c}</Project>
+      <Name>SuggestionSystem.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SuggestionSystem.Data\SuggestionSystem.Data.csproj">
+      <Project>{c0360302-964f-4cd8-9c76-2c498b043ae7}</Project>
+      <Name>SuggestionSystem.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

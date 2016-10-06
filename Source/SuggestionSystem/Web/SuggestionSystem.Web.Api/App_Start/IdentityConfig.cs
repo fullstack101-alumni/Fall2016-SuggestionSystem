@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using SuggestionSystem.Web.Api.Models;
+using SuggestionSystem.Data.Models;
+using SuggestionSystem.Data;
 
 namespace SuggestionSystem.Web.Api
 {
