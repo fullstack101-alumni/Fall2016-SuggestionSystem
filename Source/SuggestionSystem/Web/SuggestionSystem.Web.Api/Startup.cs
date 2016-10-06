@@ -4,6 +4,7 @@ using System.Web.Http;
 
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
+using SuggestionSystem.Common.Constants;
 
 [assembly: OwinStartup(typeof(SuggestionSystem.Web.Api.Startup))]
 
@@ -13,6 +14,8 @@ namespace SuggestionSystem.Web.Api
     {
         public void Configuration(IAppBuilder app)
         {
+            AutoMapperConfig.RegisterMappings(Assemblies.WebApi);
+
             ConfigureAuth(app);
 
             var httpConfig = new HttpConfiguration();

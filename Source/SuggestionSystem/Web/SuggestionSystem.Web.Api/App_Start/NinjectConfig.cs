@@ -4,7 +4,8 @@
     using System.Web;
     using Ninject;
     using Ninject.Web.Common;
-
+    using Data;
+    using Data.Repositories;
     public static class NinjectConfig
     {
         public static IKernel CreateKernel()
@@ -27,7 +28,8 @@
 
         private static void RegisterServices(IKernel kernel)
         {
-
+            kernel.Bind<ISuggestionSystemDbContext>().To<SuggestionSystemDbContext>();
+            kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
         }
     }
 }
