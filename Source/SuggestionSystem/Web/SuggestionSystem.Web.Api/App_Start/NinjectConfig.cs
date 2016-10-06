@@ -3,9 +3,11 @@
     using System;
     using System.Web;
     using Ninject;
+    using Ninject.Extensions.Conventions;
     using Ninject.Web.Common;
     using Data;
     using Data.Repositories;
+    using Common.Constants;
     public static class NinjectConfig
     {
         public static IKernel CreateKernel()
@@ -30,6 +32,11 @@
         {
             kernel.Bind<ISuggestionSystemDbContext>().To<SuggestionSystemDbContext>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
+
+            kernel.Bind(b => b
+                .From(Assemblies.DataServices)
+                .SelectAllClasses()
+                .BindDefaultInterface());
         }
     }
 }
