@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuggestionSystem.Web.Api", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A73C6A64-900F-4584-A560-891A49F2F65E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuggestionSystem.Services.Data", "SuggestionSystem.Services.Data\SuggestionSystem.Services.Data.csproj", "{84984644-19CA-4EEB-831A-068820EBAE11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{E83A4D50-FD09-4DC5-913A-F3FAACBF4573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E83A4D50-FD09-4DC5-913A-F3FAACBF4573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E83A4D50-FD09-4DC5-913A-F3FAACBF4573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84984644-19CA-4EEB-831A-068820EBAE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84984644-19CA-4EEB-831A-068820EBAE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84984644-19CA-4EEB-831A-068820EBAE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84984644-19CA-4EEB-831A-068820EBAE11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +49,6 @@ Global
 		{268BA3EB-0F58-4574-BF0B-3340B2F8661C} = {647DCF9F-457C-4272-B891-5E08BE28E58A}
 		{C0360302-964F-4CD8-9C76-2C498B043AE7} = {647DCF9F-457C-4272-B891-5E08BE28E58A}
 		{E83A4D50-FD09-4DC5-913A-F3FAACBF4573} = {31592AEE-2149-46DB-8907-A69E10A4C7BD}
+		{84984644-19CA-4EEB-831A-068820EBAE11} = {4E9F4C67-9A3F-4ACB-AB32-14BE3B42B60D}
 	EndGlobalSection
 EndGlobal

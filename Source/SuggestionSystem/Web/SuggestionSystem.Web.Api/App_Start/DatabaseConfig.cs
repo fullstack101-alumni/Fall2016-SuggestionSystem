@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace SuggestionSystem.Web.Api.App_Start
+﻿namespace SuggestionSystem.Web.Api
 {
-    public class DatabaseConfig
+    using Data;
+    using Data.Migrations;
+    using System.Data.Entity;
+
+    public static class DatabaseConfig
     {
+        public static void Initialize()
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<SuggestionSystemDbContext, Configuration>());
+        }
     }
 }
