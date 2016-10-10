@@ -1,4 +1,4 @@
-﻿namespace SuggestionSystem.Web.Api.Infrastructure.Mappings
+﻿namespace SuggestionSystem.Web.Infrastructure.Mappings
 {
     using AutoMapper;
 

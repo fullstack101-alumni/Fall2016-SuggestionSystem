@@ -1,4 +1,4 @@
-﻿namespace SuggestionSystem.Web.Api.Infrastructure.Validations
+﻿namespace SuggestionSystem.Web.Infrastructure.Validations
 {
     using Common.Constants;
     using System;
