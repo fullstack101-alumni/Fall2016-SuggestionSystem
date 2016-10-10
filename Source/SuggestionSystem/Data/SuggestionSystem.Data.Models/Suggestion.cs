@@ -42,6 +42,12 @@
         [Required]
         public bool isPrivate { get; set; }
 
+        public int UpVotesCount { get; set; }
+
+        public int DownVotesCount { get; set; }
+
+        public int CommentsCount { get; set; }
+
         public virtual ICollection<Vote> Votes
         {
             get { return this.votes; }

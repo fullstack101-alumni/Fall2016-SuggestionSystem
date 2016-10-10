@@ -56,12 +56,25 @@
         [HttpPost]
         public IHttpActionResult Comment(int id, CommentRequestModel model)
         {
+            var suggestion = this.suggestions
+                .GetSuggestionById(id)
+                .SingleOrDefault();
+
+            if (suggestion == null)
+            {
+                return this.BadRequest("Suggestion does not exist");
+            }
+
             var newComment = this.comments
                 .AddComment(id, this.User.Identity.GetUserId(), Mapper.Map<Comment>(model));
 
-            return this.Created(
-                string.Format("api/comments/{0}", newComment.Id),
-                Mapper.Map<CommentResponseModel>(newComment));
+            var updatedSuggestion = this.suggestions
+                .UpdateSuggestionCommentsCount(suggestion, suggestion.CommentsCount + 1);
+
+            var result = Mapper.Map<CommentResponseModel>(newComment);
+            result.CommentsCount = updatedSuggestion.CommentsCount;
+
+            return this.Ok(result);
         }
 
         [Authorize]
@@ -70,24 +83,57 @@
         [HttpPut]
         public IHttpActionResult Vote(int id, VoteRequestModel model)
         {
+            var suggestion = this.suggestions
+                .GetSuggestionById(id)
+                .SingleOrDefault();
+
+            if (suggestion == null)
+            {
+                return this.BadRequest("Suggestion does not exist");
+            }
+
             var userId = this.User.Identity.GetUserId();
 
             var vote = this.votes
-                .GetVote(id, userId);
+                .GetVote(id, userId)
+                .SingleOrDefault();
 
             Vote newVote;
+            Suggestion updatedSuggestion;
             if (vote == null)
             {
                 newVote = this.votes
                     .AddVote(id, userId, Mapper.Map<Vote>(model));
+
+                updatedSuggestion =
+                    model.Type == VoteType.Up ?
+                    this.suggestions.UpdateSuggestionsVotesCount(suggestion, suggestion.UpVotesCount + 1, suggestion.DownVotesCount) :
+                    this.suggestions.UpdateSuggestionsVotesCount(suggestion, suggestion.UpVotesCount, suggestion.DownVotesCount + 1);
             }
             else
             {
-                newVote = this.votes
-                    .ModifyVote(vote, model);
+                if (model.Type == vote.Type)
+                {
+                    this.votes.Delete(vote);
+
+                    updatedSuggestion =
+                        model.Type == VoteType.Up ?
+                        this.suggestions.UpdateSuggestionsVotesCount(suggestion, suggestion.UpVotesCount - 1, suggestion.DownVotesCount) :
+                        this.suggestions.UpdateSuggestionsVotesCount(suggestion, suggestion.UpVotesCount, suggestion.DownVotesCount - 1);
+                }
+                else
+                {
+                    newVote = this.votes
+                        .ModifyVote(vote, model);
+
+                    updatedSuggestion =
+                        model.Type == VoteType.Up ?
+                        this.suggestions.UpdateSuggestionsVotesCount(suggestion, suggestion.UpVotesCount + 1, suggestion.DownVotesCount - 1) :
+                        this.suggestions.UpdateSuggestionsVotesCount(suggestion, suggestion.UpVotesCount - 1, suggestion.DownVotesCount + 1);
+                }
             }
 
-            return this.Ok(newVote);
+            return this.Ok(Mapper.Map<SuggestionVoteResponseModel>(updatedSuggestion));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace SuggestionSystem.Services.Data
 {
+    using System;
     using System.Linq;
     using SuggestionSystem.Data.Models;
     using SuggestionSystem.Data.Repositories;
@@ -15,12 +16,11 @@
             this.votes = votes;
         }
 
-        public Vote GetVote(int suggestionId, string userId)
+        public IQueryable<Vote> GetVote(int suggestionId, string userId)
         {
             return this.votes
                 .All()
-                .Where(v => v.SuggestionId == suggestionId && v.UserId == userId)
-                .SingleOrDefault();
+                .Where(v => v.SuggestionId == suggestionId && v.UserId == userId);
         }
 
         public Vote AddVote(int suggestionId, string userId, Vote vote)
@@ -39,8 +39,13 @@
             voteToModify.Type = model.Type;
 
             this.votes.SaveChanges();
-
             return voteToModify;
+        }
+
+        public void Delete(Vote voteToDelete)
+        {
+            this.votes.Delete(voteToDelete);
+            this.votes.SaveChanges();
         }
     }
 }
