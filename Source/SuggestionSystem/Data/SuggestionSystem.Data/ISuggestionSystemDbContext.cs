@@ -9,6 +9,12 @@
     {
         IDbSet<User> Users { get; set; }
 
+        IDbSet<Suggestion> Suggestions { get; set; }
+
+        IDbSet<Comment> Comments { get; set; }
+
+        IDbSet<Vote> Votes { get; set; }
+
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
