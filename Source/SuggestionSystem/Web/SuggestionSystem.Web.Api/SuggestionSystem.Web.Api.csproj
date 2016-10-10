@@ -274,12 +274,10 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SuggestionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
-    <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
-    <Compile Include="Infrastructure\Validations\ValidateModelAttribute.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -374,6 +372,14 @@
     <ProjectReference Include="..\..\SuggestionSystem.Common\SuggestionSystem.Common.csproj">
       <Project>{f72ccae1-3953-45c5-855d-3a8df40a5e81}</Project>
       <Name>SuggestionSystem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuggestionSystem.Web.DataTransferModels\SuggestionSystem.Web.DataTransferModels.csproj">
+      <Project>{fedb9087-8163-498c-86bf-79fe0e7d7164}</Project>
+      <Name>SuggestionSystem.Web.DataTransferModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuggestionSystem.Web.Infrastructure\SuggestionSystem.Web.Infrastructure.csproj">
+      <Project>{3bcf6b71-96eb-4725-9412-d7fe3e16ac9a}</Project>
+      <Name>SuggestionSystem.Web.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

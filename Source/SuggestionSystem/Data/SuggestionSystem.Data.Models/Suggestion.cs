@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Common.Constants;
 
     public class Suggestion
     {
@@ -18,18 +19,18 @@
         [Key]
         public int Id { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual User User { get; set; }
 
         [Required]
-        [MinLength(10)]
-        [MaxLength(50)]
+        [MinLength(SuggestionsConstants.TitleMinLength)]
+        [MaxLength(SuggestionsConstants.TitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
-        [MinLength(20)]
-        [MaxLength(200)]
+        [MinLength(SuggestionsConstants.ContentMinLength)]
+        [MaxLength(SuggestionsConstants.ContentMaxLength)]
         public string Content { get; set; }
 
         [Required]
@@ -39,10 +40,13 @@
         public DateTime DateCreated { get; set; }
 
         [Required]
-        public bool isAnonymous { get; set; }
-
-        [Required]
         public bool isPrivate { get; set; }
+
+        public int UpVotesCount { get; set; }
+
+        public int DownVotesCount { get; set; }
+
+        public int CommentsCount { get; set; }
 
         public virtual ICollection<Vote> Votes
         {

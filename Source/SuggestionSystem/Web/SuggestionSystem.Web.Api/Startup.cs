@@ -14,7 +14,7 @@ namespace SuggestionSystem.Web.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            AutoMapperConfig.RegisterMappings(Assemblies.WebApi);
+            AutoMapperConfig.RegisterMappings(Assemblies.DataTransferModels);
 
             ConfigureAuth(app);
 

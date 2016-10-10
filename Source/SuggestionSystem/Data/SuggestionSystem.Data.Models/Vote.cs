@@ -9,7 +9,7 @@
         public int Id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual User User { get; set; }
 
@@ -20,8 +20,5 @@
 
         [Required]
         public VoteType Type { get; set; }
-
-        [Required]
-        public DateTime DateCreated { get; set; }
     }
 }
