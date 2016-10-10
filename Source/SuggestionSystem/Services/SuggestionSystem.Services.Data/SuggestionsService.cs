@@ -32,6 +32,12 @@
             return suggestion;
         }
 
+        public void Delete(Suggestion suggestion)
+        {
+            this.suggestions.Delete(suggestion);
+            this.suggestions.SaveChanges();
+        }
+
         public IQueryable<Suggestion> GetAllSuggestions()
         {
             return this.suggestions.All();
