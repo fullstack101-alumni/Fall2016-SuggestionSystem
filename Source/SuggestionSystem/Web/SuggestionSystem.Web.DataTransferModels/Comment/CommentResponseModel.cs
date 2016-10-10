@@ -10,7 +10,9 @@
         public int Id { get; set; }
         
         public string Author { get; set; }
+
         public string Content { get; set; }
+
         public DateTime DateCreated { get; set; }
 
         public void CreateMappings(IConfiguration configuration)

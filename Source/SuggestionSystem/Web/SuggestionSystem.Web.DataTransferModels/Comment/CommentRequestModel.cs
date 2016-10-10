@@ -7,7 +7,6 @@
 
     public class CommentRequestModel : IMapFrom<Comment>
     {
-
         [Required]
         [MinLength(CommentsConstants.ContentMinLength)]
         [MaxLength(CommentsConstants.ContentMaxLength)]

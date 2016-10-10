@@ -20,8 +20,5 @@
 
         [Required]
         public VoteType Type { get; set; }
-
-        [Required]
-        public DateTime DateCreated { get; set; }
     }
 }

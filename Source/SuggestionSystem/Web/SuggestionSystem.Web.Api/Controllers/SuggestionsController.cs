@@ -10,16 +10,19 @@
     using Data.Models;
     using AutoMapper;
     using DataTransferModels.Comment;
+    using DataTransferModels.Vote;
 
     public class SuggestionsController : ApiController
     {
         private readonly ISuggestionsService suggestions;
         private readonly ICommentService comments;
+        private readonly IVoteService votes;
 
-        public SuggestionsController(ISuggestionsService suggestions, ICommentService comments)
+        public SuggestionsController(ISuggestionsService suggestions, ICommentService comments, IVoteService votes)
         {
             this.suggestions = suggestions;
             this.comments = comments;
+            this.votes = votes;
         }
 
         [AllowAnonymous]
@@ -59,6 +62,32 @@
             return this.Created(
                 string.Format("api/comments/{0}", newComment.Id),
                 Mapper.Map<CommentResponseModel>(newComment));
+        }
+
+        [Authorize]
+        [ValidateModel]
+        [Route("api/suggestions/{id}/vote")]
+        [HttpPut]
+        public IHttpActionResult Vote(int id, VoteRequestModel model)
+        {
+            var userId = this.User.Identity.GetUserId();
+
+            var vote = this.votes
+                .GetVote(id, userId);
+
+            Vote newVote;
+            if (vote == null)
+            {
+                newVote = this.votes
+                    .AddVote(id, userId, Mapper.Map<Vote>(model));
+            }
+            else
+            {
+                newVote = this.votes
+                    .ModifyVote(vote, model);
+            }
+
+            return this.Ok(newVote);
         }
     }
 }
