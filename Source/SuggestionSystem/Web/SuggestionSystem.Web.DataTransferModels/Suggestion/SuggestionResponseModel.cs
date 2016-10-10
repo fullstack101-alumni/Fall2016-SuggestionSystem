@@ -1,5 +1,6 @@
 ﻿namespace SuggestionSystem.Web.DataTransferModels.Suggestion
 {
+    using System;
     using AutoMapper;
     using Infrastructure.Mappings;
     using Data.Models;
@@ -7,6 +8,8 @@
 
     public class SuggestionResponseModel : IMapFrom<Suggestion>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string Content { get; set; }
@@ -20,6 +23,8 @@
         public SuggestionStatus Status { get; set; }
 
         public int CommentsCount { get; set; }
+
+        public DateTime DateCreated { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {

@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comment\CommentRequestModel.cs" />
+    <Compile Include="Comment\CommentResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Suggestion\SuggestionRequestModel.cs" />
     <Compile Include="Suggestion\SuggestionResponseModel.cs" />

@@ -9,14 +9,17 @@
     using Microsoft.AspNet.Identity;
     using Data.Models;
     using AutoMapper;
+    using DataTransferModels.Comment;
 
     public class SuggestionsController : ApiController
     {
         private readonly ISuggestionsService suggestions;
+        private readonly ICommentService comments;
 
-        public SuggestionsController(ISuggestionsService suggestions)
+        public SuggestionsController(ISuggestionsService suggestions, ICommentService comments)
         {
             this.suggestions = suggestions;
+            this.comments = comments;
         }
 
         [AllowAnonymous]
@@ -26,7 +29,7 @@
                 .GetAllSuggestions()
                 .ProjectTo<SuggestionResponseModel>()
                 .ToList();
-         
+
             return this.Ok(result);
         }
 
@@ -42,6 +45,20 @@
             return this.Created(
                 string.Format("/api/suggestions/{0}", newSuggestion.Id),
                 Mapper.Map<SuggestionResponseModel>(newSuggestion));
+        }
+
+        [Authorize]
+        [ValidateModel]
+        [Route("api/suggestions/{id}/comment")]
+        [HttpPost]
+        public IHttpActionResult Comment(int id, CommentRequestModel model)
+        {
+            var newComment = this.comments
+                .AddComment(id, this.User.Identity.GetUserId(), Mapper.Map<Comment>(model));
+
+            return this.Created(
+                string.Format("api/comments/{0}", newComment.Id),
+                Mapper.Map<CommentResponseModel>(newComment));
         }
     }
 }
