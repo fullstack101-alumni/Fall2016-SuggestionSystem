@@ -36,6 +36,52 @@
             return this.Ok(result);
         }
 
+        [Authorize]
+        public IHttpActionResult Delete(int id, string userId)
+        {
+            var suggestion = this.suggestions
+                .GetSuggestionById(id)
+                .SingleOrDefault();
+
+            if(suggestions == null)
+            {
+                return this.BadRequest("Suggestion does not exist");
+            }
+
+            if (suggestion.UserId == null || suggestion.UserId != this.User.Identity.GetUserId())
+            {
+                return this.BadRequest("You are not permitted to modify suggestions that are not yours.");
+            }
+
+            this.suggestions.Delete(suggestion);
+
+            return this.Ok("Suggestion deleted.");
+        }
+
+        [Authorize]
+        [ValidateModel]
+        public IHttpActionResult Put(int id, SuggestionRequestModel model)
+        {
+            var suggestion = this.suggestions
+               .GetSuggestionById(id)
+               .SingleOrDefault();
+
+            if (suggestions == null)
+            {
+                return this.BadRequest("Suggestion does not exist");
+            }
+
+            if (suggestion.UserId == null || suggestion.UserId != this.User.Identity.GetUserId())
+            {
+                return this.BadRequest("You are not permitted to modify suggestions that are not yours.");
+            }
+
+            var newSuggestion = this.suggestions
+                .UpdateSuggestion(suggestion, model);
+
+            return this.Ok(Mapper.Map<SuggestionResponseModel>(newSuggestion));
+        }
+
         [AllowAnonymous]
         [ValidateModel]
         public IHttpActionResult Post(SuggestionRequestModel model)
