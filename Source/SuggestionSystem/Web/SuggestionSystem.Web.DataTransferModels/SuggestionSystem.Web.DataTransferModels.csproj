@@ -62,12 +62,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Suggestion\SuggestionRequestModel.cs" />
     <Compile Include="Suggestion\SuggestionResponseModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\SuggestionSystem.Data.Models\SuggestionSystem.Data.Models.csproj">
       <Project>{268ba3eb-0f58-4574-bf0b-3340b2f8661c}</Project>
       <Name>SuggestionSystem.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SuggestionSystem.Common\SuggestionSystem.Common.csproj">
+      <Project>{f72ccae1-3953-45c5-855d-3a8df40a5e81}</Project>
+      <Name>SuggestionSystem.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\SuggestionSystem.Web.Infrastructure\SuggestionSystem.Web.Infrastructure.csproj">
       <Project>{3bcf6b71-96eb-4725-9412-d7fe3e16ac9a}</Project>

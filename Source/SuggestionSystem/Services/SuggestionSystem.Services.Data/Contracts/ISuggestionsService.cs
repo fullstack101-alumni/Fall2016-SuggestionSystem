@@ -6,5 +6,7 @@
     public interface ISuggestionsService
     {
         IQueryable<Suggestion> GetAllSuggestions();
+
+        Suggestion AddSuggestion(string userId, Suggestion suggestion);
     }
 }

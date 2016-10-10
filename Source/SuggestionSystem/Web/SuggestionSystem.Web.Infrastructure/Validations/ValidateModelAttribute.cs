@@ -3,6 +3,7 @@
     using Common.Constants;
     using System;
     using System.Linq;
+    using System.Net;
     using System.Net.Http;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
@@ -19,13 +20,7 @@
 
             if (!actionContext.ModelState.IsValid)
             {
-                var error = actionContext
-                    .ModelState
-                    .Values
-                    .SelectMany(v => v.Errors.Select(er => er.ErrorMessage))
-                    .First();
-
-                actionContext.Response = actionContext.Request.CreateResponse(error);
+                actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, actionContext.ModelState);
             }
         }
     }
