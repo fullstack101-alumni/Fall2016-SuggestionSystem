@@ -1,0 +1,26 @@
+$mobile-only: "only screen and (max-width : 768px)";
+
+#footer {
+  background-color: #0d335f;
+  color: #fff;
+  padding: 18px 0;
+  line-height: 5px;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.left {
+  position: absolute;
+  left: 15px;
+  font-size: 16px;
+
+  @media #{$mobile-only} {
+    width: 100%;
+    left: 0;
+  }
+}
+
+

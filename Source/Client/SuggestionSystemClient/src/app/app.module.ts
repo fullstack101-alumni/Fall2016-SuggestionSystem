@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { FooterComponent } from './footer/footer.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SuggestionsComponent,
-    FooterComponent
+    FooterComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
