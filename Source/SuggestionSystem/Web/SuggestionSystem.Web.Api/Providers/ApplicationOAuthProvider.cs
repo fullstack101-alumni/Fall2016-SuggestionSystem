@@ -45,10 +45,23 @@ namespace SuggestionSystem.Web.Api.Providers
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            List<Claim> roles = oAuthIdentity.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+            AuthenticationProperties properties = CreateProperties(user.UserName, String.Join(",", roles.Select(r => r.Value)));
+
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
+        }
+
+        public static AuthenticationProperties CreateProperties(string userName, string Roles)
+        {
+            IDictionary<string, string> data = new Dictionary<string, string>
+            {
+                { "userName", userName },
+                {"roles",Roles}
+            };
+
+            return new AuthenticationProperties(data);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
