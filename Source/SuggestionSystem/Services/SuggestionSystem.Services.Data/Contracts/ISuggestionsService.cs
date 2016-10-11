@@ -1,12 +1,13 @@
 ﻿namespace SuggestionSystem.Services.Data.Contracts
 {
-    using SuggestionSystem.Data.Models;
+    using System;
     using System.Linq;
+    using SuggestionSystem.Data.Models;
     using Web.DataTransferModels.Suggestion;
 
     public interface ISuggestionsService
     {
-        IQueryable<Suggestion> GetAllSuggestions();
+        Tuple<IQueryable<Suggestion>, int> GetSuggestions(int page, int itemsPerPage, string orderBy, string search, string status, bool onlyMine, bool onlyUpVoted, string userId, UserRole userRole);
 
         IQueryable<Suggestion> GetSuggestionById(int id);
 

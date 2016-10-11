@@ -11,6 +11,7 @@
     using AutoMapper;
     using DataTransferModels.Comment;
     using DataTransferModels.Vote;
+    using Common.Constants;
 
     public class SuggestionsController : ApiController
     {
@@ -26,14 +27,19 @@
         }
 
         [AllowAnonymous]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int page = SuggestionsConstants.DefaultPage, int itemsPerPage = SuggestionsConstants.RecommendedSuggestionsPerPage, string orderBy = SuggestionsConstants.DefaultOrderBy, string search = null, string status = null, bool onlyMine = false, bool onlyUpVoted = false)
         {
-            var result = this.suggestions
-                .GetAllSuggestions()
-                .ProjectTo<SuggestionResponseModel>()
-                .ToList();
+            // TODO: get user role when admin role is implemented
+            var userId = this.User.Identity.GetUserId();
+            var userRole = UserRole.User;
 
-            return this.Ok(result);
+            var result = this.suggestions
+                .GetSuggestions(page, itemsPerPage, orderBy, search, status, onlyMine, onlyUpVoted, userId, userRole);
+
+            var suggestionsResults = result.Item1.ProjectTo<SuggestionResponseModel>();
+            var suggestionsCountAll = result.Item2;
+
+            return this.Ok(new { Items = suggestionsResults, ItemsCount = suggestionsCountAll });
         }
 
         [Authorize]

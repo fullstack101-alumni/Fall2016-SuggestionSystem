@@ -2,10 +2,12 @@
 {
     using System;
     using System.Linq;
+    using System.Linq.Dynamic;
     using Contracts;
     using SuggestionSystem.Data.Models;
     using SuggestionSystem.Data.Repositories;
     using Web.DataTransferModels.Suggestion;
+    using Common.Constants;
 
     public class SuggestionsService : ISuggestionsService
     {
@@ -55,9 +57,56 @@
             return suggestionToUpdate;
         }
 
-        public IQueryable<Suggestion> GetAllSuggestions()
-        {
-            return this.suggestions.All();
+        public Tuple<IQueryable<Suggestion>, int> GetSuggestions(int page, int itemsPerPage, string orderBy, string search, string status, bool onlyMine, bool onlyUpVoted, string userId, UserRole userRole)
+        {   
+            var suggestionsToReturn = this.suggestions.All();
+
+            if (userRole == UserRole.User)
+            {
+                suggestionsToReturn = suggestionsToReturn
+                    .Where(s => s.isPrivate == false && s.Status != SuggestionStatus.WaitingForApproval && s.Status != SuggestionStatus.NotApproved);
+            }
+
+            if (status != null)
+            {
+                suggestionsToReturn = suggestionsToReturn
+                    .Where(s => s.Status == (SuggestionStatus)Enum.Parse(typeof(SuggestionStatus), status));
+            }
+
+            if (search != null)
+            {
+                suggestionsToReturn = suggestionsToReturn
+                    .Where(s => s.Title.Contains(search) || s.Content.Contains(search));
+            }
+
+            if (onlyMine)
+            {
+                suggestionsToReturn = suggestionsToReturn
+                    .Where(s => s.UserId == userId);
+            }
+
+            if (onlyUpVoted)
+            {
+                suggestionsToReturn = suggestionsToReturn
+                    .Where(s => s.Votes.Where(v => v.Type == VoteType.Up).Select(v => v.UserId).Equals(userId));
+            }
+
+            if (orderBy != null)
+            {
+                suggestionsToReturn = suggestionsToReturn.OrderBy(s => orderBy);
+            }
+
+            var suggestionsCount = suggestionsToReturn.Count();
+            
+            page = page >= 0 ? page : SuggestionsConstants.DefaultPage;
+            itemsPerPage = itemsPerPage >= SuggestionsConstants.MinimalSuggestionsPerPage ? itemsPerPage : SuggestionsConstants.MinimalSuggestionsPerPage;
+            itemsPerPage = itemsPerPage <= SuggestionsConstants.MaximalSuggestionsPerPage ? itemsPerPage : SuggestionsConstants.MaximalSuggestionsPerPage;
+
+            suggestionsToReturn = suggestionsToReturn
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage);
+
+            return new Tuple<IQueryable<Suggestion>, int>(suggestionsToReturn, suggestionsCount);
         }
 
         public IQueryable<Suggestion> GetSuggestionById(int id)

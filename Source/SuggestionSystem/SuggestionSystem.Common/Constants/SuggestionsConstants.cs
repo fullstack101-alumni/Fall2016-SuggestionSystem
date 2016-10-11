@@ -7,5 +7,12 @@
 
         public const int ContentMinLength = 30;
         public const int ContentMaxLength = 200;
+
+        public const int MinimalSuggestionsPerPage = 10;
+        public const int MaximalSuggestionsPerPage = 40;
+        public const int RecommendedSuggestionsPerPage = 20;
+
+        public const int DefaultPage = 0;
+        public const string DefaultOrderBy = "DateCreated";
     }
 }
