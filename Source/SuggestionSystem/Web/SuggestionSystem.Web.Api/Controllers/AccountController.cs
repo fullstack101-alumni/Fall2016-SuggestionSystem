@@ -402,10 +402,10 @@
             base.Dispose(disposing);
         }
 
-        [Route("users/{id:guid}/roles")]
+        [Route("{id:guid}/assignRoles")]
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IHttpActionResult> AssignRolesToUser(string id, string[] rolesToAssign)
+        public async Task<IHttpActionResult> AssignRolesToUser(string id, [FromBody]string[] rolesToAssign)
         {
             if (rolesToAssign == null)
             {
@@ -420,8 +420,8 @@
             }
 
             var currentRoles = await this.UserManager.GetRolesAsync(appUser.Id);
-
-            var rolesNotExists = rolesToAssign.Except(this.RoleManager.Roles.Select(x => x.Name)).ToArray();
+            var existingRoles = this.RoleManager.Roles.Select(x => x.Name);
+            var rolesNotExists = rolesToAssign.Except(existingRoles).ToArray();
 
             if (rolesNotExists.Count() > 0)
             {
