@@ -1,9 +1,10 @@
 ﻿namespace SuggestionSystem.Web.DataTransferModels.Vote
 {
-    using Data.Models;
     using System.ComponentModel.DataAnnotations;
-
-    public class VoteRequestModel
+    using Data.Models;
+    using Infrastructure.Mappings;
+    
+    public class VoteRequestModel : IMapFrom<Vote>
     {
         [Required]
         public VoteType Type { get; set; }

@@ -181,5 +181,26 @@
 
             return this.Ok(Mapper.Map<SuggestionVoteResponseModel>(updatedSuggestion));
         }
+
+        [Authorize]
+        [HttpPut]
+        [ValidateModel]
+        [Route("api/suggestions/{id}/changeStatus")]
+        public IHttpActionResult ChangeStatus(int id, SuggestionStatusRequestModel model)
+        {
+            var suggestion = this.suggestions
+                .GetSuggestionById(id)
+                .SingleOrDefault();
+
+            if (suggestion == null)
+            {
+                return this.BadRequest("Suggestion does not exist");
+            }
+
+            var newSuggestion = this.suggestions
+                .ChangeSuggestionStatus(suggestion, model);
+
+            return this.Ok(newSuggestion);
+        }
     }
 }

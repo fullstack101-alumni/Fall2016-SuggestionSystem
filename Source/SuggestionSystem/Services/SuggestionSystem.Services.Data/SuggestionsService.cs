@@ -5,8 +5,7 @@
     using Contracts;
     using SuggestionSystem.Data.Models;
     using SuggestionSystem.Data.Repositories;
-    using Web.DataTransferModels.Comment;
-    using Web.DataTransferModels.Vote;
+    using Web.DataTransferModels.Suggestion;
 
     public class SuggestionsService : ISuggestionsService
     {
@@ -32,10 +31,28 @@
             return suggestion;
         }
 
+        public Suggestion ChangeSuggestionStatus(Suggestion suggestionStatusToChange, SuggestionStatusRequestModel model)
+        {
+            suggestionStatusToChange.Status = model.Status;
+
+            this.suggestions.SaveChanges();
+            return suggestionStatusToChange;
+        }
+
         public void Delete(Suggestion suggestion)
         {
             this.suggestions.Delete(suggestion);
             this.suggestions.SaveChanges();
+        }
+
+        public Suggestion UpdateSuggestion(Suggestion suggestionToUpdate, SuggestionRequestModel model)
+        {
+            suggestionToUpdate.Title = model.Title;
+            suggestionToUpdate.Content = model.Content;
+            suggestionToUpdate.isPrivate = model.isPrivate;
+            
+            this.suggestions.SaveChanges();
+            return suggestionToUpdate;
         }
 
         public IQueryable<Suggestion> GetAllSuggestions()

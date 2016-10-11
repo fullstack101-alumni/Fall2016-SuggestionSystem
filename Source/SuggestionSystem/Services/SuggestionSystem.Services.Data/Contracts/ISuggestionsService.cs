@@ -2,8 +2,7 @@
 {
     using SuggestionSystem.Data.Models;
     using System.Linq;
-    using Web.DataTransferModels.Comment;
-    using Web.DataTransferModels.Vote;
+    using Web.DataTransferModels.Suggestion;
 
     public interface ISuggestionsService
     {
@@ -16,5 +15,11 @@
         Suggestion UpdateSuggestionCommentsCount(Suggestion suggestionToUpdate, int newCommentsCount);
 
         Suggestion UpdateSuggestionsVotesCount(Suggestion suggestionToUpdate, int newUpVotesCount, int newDownVotesCount);
+
+        void Delete(Suggestion suggestion);
+
+        Suggestion UpdateSuggestion(Suggestion suggestionToUpdate, SuggestionRequestModel model);
+
+        Suggestion ChangeSuggestionStatus(Suggestion suggestionStatusToChange, SuggestionStatusRequestModel model);
     }
 }
