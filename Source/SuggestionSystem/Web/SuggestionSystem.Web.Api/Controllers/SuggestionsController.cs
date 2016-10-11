@@ -29,12 +29,10 @@
         [AllowAnonymous]
         public IHttpActionResult Get(int page = SuggestionsConstants.DefaultPage, int itemsPerPage = SuggestionsConstants.RecommendedSuggestionsPerPage, string orderBy = SuggestionsConstants.DefaultOrderBy, string search = null, string status = null, bool onlyMine = false, bool onlyUpVoted = false)
         {
-            // TODO: get user role when admin role is implemented
             var userId = this.User.Identity.GetUserId();
-            var userRole = UserRole.User;
 
             var result = this.suggestions
-                .GetSuggestions(page, itemsPerPage, orderBy, search, status, onlyMine, onlyUpVoted, userId, userRole);
+                .GetSuggestions(page, itemsPerPage, orderBy, search, status, onlyMine, onlyUpVoted, userId, this.User.IsInRole(UserConstants.AdminRole));
 
             var suggestionsResults = result.Item1.ProjectTo<SuggestionResponseModel>();
             var suggestionsCountAll = result.Item2;
@@ -43,7 +41,7 @@
         }
 
         [Authorize]
-        public IHttpActionResult Delete(int id, string userId)
+        public IHttpActionResult Delete(int id)
         {
             var suggestion = this.suggestions
                 .GetSuggestionById(id)
@@ -51,12 +49,12 @@
 
             if(suggestions == null)
             {
-                return this.BadRequest("Suggestion does not exist");
+                return this.NotFound();
             }
 
-            if (suggestion.UserId == null || suggestion.UserId != this.User.Identity.GetUserId())
+            if (!this.suggestions.UserIsEligibleToModifySuggestion(suggestion, this.User.Identity.GetUserId(), this.User.IsInRole(UserConstants.AdminRole)))
             {
-                return this.BadRequest("You are not permitted to modify suggestions that are not yours.");
+                return this.BadRequest("You are not allowed to modify this suggestion!");
             }
 
             this.suggestions.Delete(suggestion);
@@ -77,9 +75,9 @@
                 return this.BadRequest("Suggestion does not exist");
             }
 
-            if (suggestion.UserId == null || suggestion.UserId != this.User.Identity.GetUserId())
+            if (!this.suggestions.UserIsEligibleToModifySuggestion(suggestion, this.User.Identity.GetUserId(), this.User.IsInRole(UserConstants.AdminRole)))
             {
-                return this.BadRequest("You are not permitted to modify suggestions that are not yours.");
+                return this.BadRequest("You are not allowed to modify this suggestion!");
             }
 
             var newSuggestion = this.suggestions
@@ -116,16 +114,10 @@
             {
                 return this.BadRequest("Suggestion does not exist");
             }
-
-            // TODO: Get user role
-            var userRole = UserRole.User;
-
-            if (userRole == UserRole.User)
+            
+            if (!this.suggestions.UserIsEligibleToGetSuggestion(suggestion, this.User.IsInRole(UserConstants.AdminRole)))
             {
-                if (suggestion.isPrivate || suggestion.Status == SuggestionStatus.WaitingForApproval || suggestion.Status == SuggestionStatus.NotApproved)
-                {
-                    return this.BadRequest("You do not have permission to comment that suggestion!");
-                }
+                return this.BadRequest("You do not have permission to comment that suggestion!");
             }
 
             var newComment = this.comments
@@ -152,6 +144,11 @@
             if (suggestion == null)
             {
                 return this.BadRequest("Suggestion does not exist");
+            }
+
+            if (!this.suggestions.UserIsEligibleToGetSuggestion(suggestion, this.User.IsInRole(UserConstants.AdminRole)))
+            {
+                return this.BadRequest("You do not have permission to vote for that suggestion!");
             }
 
             var userId = this.User.Identity.GetUserId();
@@ -198,20 +195,19 @@
             return this.Ok(Mapper.Map<SuggestionVoteResponseModel>(updatedSuggestion));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [ValidateModel]
         [Route("api/suggestions/{id}/changeStatus")]
         public IHttpActionResult ChangeStatus(int id, SuggestionStatusRequestModel model)
         {
-            // TODO: Make it only for admins
             var suggestion = this.suggestions
                 .GetSuggestionById(id)
                 .SingleOrDefault();
 
             if (suggestion == null)
             {
-                return this.BadRequest("Suggestion does not exist");
+                return this.NotFound();
             }
 
             var newSuggestion = this.suggestions
@@ -225,13 +221,19 @@
         [Route("api/suggestions/{id}/comments")]
         public IHttpActionResult GetComments(int id, int from = 0, int count = 5)
         {
+            // TODO: Extract constants for from and count
             var suggestion = this.suggestions
                 .GetSuggestionById(id)
                 .SingleOrDefault();
 
             if (suggestion == null)
             {
-                return this.BadRequest("Suggestion does not exist");
+                return this.NotFound();
+            }
+
+            if (!this.suggestions.UserIsEligibleToGetSuggestion(suggestion, this.User.IsInRole(UserConstants.AdminRole)))
+            {
+                return this.BadRequest("You do not have permission to view the suggestion's comments!");
             }
 
             var comments = this.comments

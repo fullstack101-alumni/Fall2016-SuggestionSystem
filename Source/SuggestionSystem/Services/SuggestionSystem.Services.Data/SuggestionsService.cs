@@ -52,16 +52,16 @@
             suggestionToUpdate.Title = model.Title;
             suggestionToUpdate.Content = model.Content;
             suggestionToUpdate.isPrivate = model.isPrivate;
-            
+
             this.suggestions.SaveChanges();
             return suggestionToUpdate;
         }
 
-        public Tuple<IQueryable<Suggestion>, int> GetSuggestions(int page, int itemsPerPage, string orderBy, string search, string status, bool onlyMine, bool onlyUpVoted, string userId, UserRole userRole)
-        {   
+        public Tuple<IQueryable<Suggestion>, int> GetSuggestions(int page, int itemsPerPage, string orderBy, string search, string status, bool onlyMine, bool onlyUpVoted, string userId, bool isAdmin)
+        {
             var suggestionsToReturn = this.suggestions.All();
 
-            if (userRole == UserRole.User)
+            if (!isAdmin)
             {
                 suggestionsToReturn = suggestionsToReturn
                     .Where(s => s.isPrivate == false && s.Status != SuggestionStatus.WaitingForApproval && s.Status != SuggestionStatus.NotApproved);
@@ -97,7 +97,7 @@
             }
 
             var suggestionsCount = suggestionsToReturn.Count();
-            
+
             page = page >= 0 ? page : SuggestionsConstants.DefaultPage;
             itemsPerPage = itemsPerPage >= SuggestionsConstants.MinimalSuggestionsPerPage ? itemsPerPage : SuggestionsConstants.MinimalSuggestionsPerPage;
             itemsPerPage = itemsPerPage <= SuggestionsConstants.MaximalSuggestionsPerPage ? itemsPerPage : SuggestionsConstants.MaximalSuggestionsPerPage;
@@ -131,6 +131,22 @@
 
             this.suggestions.SaveChanges();
             return suggestionToUpdate;
+        }
+
+        public bool UserIsEligibleToGetSuggestion(Suggestion suggestion, bool isAdmin)
+        {
+            return (isAdmin) ||
+                !(suggestion.isPrivate ||
+                suggestion.Status == SuggestionStatus.WaitingForApproval ||
+                suggestion.Status == SuggestionStatus.NotApproved);
+        }
+
+        public bool UserIsEligibleToModifySuggestion(Suggestion suggestion, string userId, bool isAdmin)
+        {
+            return (isAdmin) ||
+                !(suggestion.UserId == null ||
+                suggestion.UserId != userId ||
+                suggestion.Status != SuggestionStatus.WaitingForApproval);
         }
     }
 }

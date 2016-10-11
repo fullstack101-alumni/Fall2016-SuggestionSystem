@@ -62,7 +62,6 @@
     <Compile Include="Suggestion.cs" />
     <Compile Include="SuggestionStatus.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="UserRole.cs" />
     <Compile Include="Vote.cs" />
     <Compile Include="VoteType.cs" />
   </ItemGroup>
