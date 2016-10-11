@@ -344,6 +344,11 @@
                 return BadRequest(ModelState);
             }
 
+            if (!(model.Email.EndsWith("@aubg.edu") || model.Email.EndsWith("@aubg.bg")))
+            {
+                return BadRequest("Only aubg.bg and aubg.edu emails can be registered");
+            }
+
             var user = new User() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
