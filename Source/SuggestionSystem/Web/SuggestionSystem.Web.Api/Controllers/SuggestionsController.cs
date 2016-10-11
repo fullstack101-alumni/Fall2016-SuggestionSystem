@@ -117,6 +117,17 @@
                 return this.BadRequest("Suggestion does not exist");
             }
 
+            // TODO: Get user role
+            var userRole = UserRole.User;
+
+            if (userRole == UserRole.User)
+            {
+                if (suggestion.isPrivate || suggestion.Status == SuggestionStatus.WaitingForApproval || suggestion.Status == SuggestionStatus.NotApproved)
+                {
+                    return this.BadRequest("You do not have permission to comment that suggestion!");
+                }
+            }
+
             var newComment = this.comments
                 .AddComment(id, this.User.Identity.GetUserId(), Mapper.Map<Comment>(model));
 
@@ -124,7 +135,6 @@
                 .UpdateSuggestionCommentsCount(suggestion, suggestion.CommentsCount + 1);
 
             var result = Mapper.Map<CommentResponseModel>(newComment);
-            result.CommentsCount = updatedSuggestion.CommentsCount;
 
             return this.Ok(result);
         }
@@ -194,6 +204,7 @@
         [Route("api/suggestions/{id}/changeStatus")]
         public IHttpActionResult ChangeStatus(int id, SuggestionStatusRequestModel model)
         {
+            // TODO: Make it only for admins
             var suggestion = this.suggestions
                 .GetSuggestionById(id)
                 .SingleOrDefault();
@@ -207,6 +218,27 @@
                 .ChangeSuggestionStatus(suggestion, model);
 
             return this.Ok(newSuggestion);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("api/suggestions/{id}/comments")]
+        public IHttpActionResult GetComments(int id, int from = 0, int count = 5)
+        {
+            var suggestion = this.suggestions
+                .GetSuggestionById(id)
+                .SingleOrDefault();
+
+            if (suggestion == null)
+            {
+                return this.BadRequest("Suggestion does not exist");
+            }
+
+            var comments = this.comments
+                .GetCommentsForSuggestion(id, from, count)
+                .ProjectTo<CommentResponseModel>();
+
+            return this.Ok(comments);
         }
     }
 }

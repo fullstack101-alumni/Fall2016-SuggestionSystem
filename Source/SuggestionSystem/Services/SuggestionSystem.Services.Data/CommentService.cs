@@ -4,7 +4,8 @@
     using SuggestionSystem.Data.Models;
     using SuggestionSystem.Services.Data.Contracts;
     using SuggestionSystem.Data.Repositories;
-    
+    using System.Linq;
+
     public class CommentService : ICommentService
     {
         private readonly IRepository<Comment> comments;
@@ -24,6 +25,15 @@
             this.comments.SaveChanges();
 
             return comment;
+        }
+
+        public IQueryable<Comment> GetCommentsForSuggestion(int id, int from, int count)
+        {
+            return this.comments.All()
+                .Where(c => c.SuggestionId == id)
+                .OrderBy(c => c.DateCreated)
+                .Skip(from)
+                .Take(count);
         }
     }
 }

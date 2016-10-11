@@ -15,8 +15,6 @@
 
         public DateTime DateCreated { get; set; }
 
-        public int CommentsCount { get; set; }
-
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Comment, CommentResponseModel>()
