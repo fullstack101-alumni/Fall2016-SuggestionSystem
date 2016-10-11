@@ -350,15 +350,42 @@
             }
 
             var user = new User() { UserName = model.Email, Email = model.Email };
-
+            
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult roleResult = this.UserManager.AddToRole(user.Id, UserConstants.UserRole);
+
+            if (!(result.Succeeded || roleResult.Succeeded))
+            {
+                return GetErrorResult(result);
+            }
+
+            var emailConfirmationToken = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var encodedToken = HttpUtility.UrlEncode(emailConfirmationToken);
+
+            var callbackUrl = Url.Link("DefaultApi", new { Controller = "Account/ConfirmEmail", userId = user.Id, encodedToken = encodedToken });
+            var emailBody = string.Format("Please confirm your account by clicking <a href={0}>here</a>", callbackUrl);
+            await UserManager.SendEmailAsync(user.Id, "Confirm your SuggestionBox account!", emailBody);
+
+            return Ok();
+        }
+
+        [Route("ConfirmEmail")]
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId, string encodedToken)
+        {
+            if (userId == null || encodedToken == null)
+            {
+                return NotFound();
+            }
+
+            var decodedToken = HttpUtility.UrlDecode(encodedToken);
+            var result = await UserManager.ConfirmEmailAsync(userId, decodedToken);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
-
-            this.UserManager.AddToRole(user.Id, UserConstants.UserRole);
 
             return Ok();
         }
