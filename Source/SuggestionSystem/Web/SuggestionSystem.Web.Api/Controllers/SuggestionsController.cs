@@ -194,7 +194,7 @@
                         this.suggestions.UpdateSuggestionsVotesCount(suggestion, suggestion.UpVotesCount - 1, suggestion.DownVotesCount + 1);
                 }
             }
-
+            
             return this.Ok(Mapper.Map<SuggestionVoteResponseModel>(updatedSuggestion));
         }
 

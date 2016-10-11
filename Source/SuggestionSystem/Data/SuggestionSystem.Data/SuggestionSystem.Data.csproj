@@ -69,6 +69,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SuggestionSystem.Common\SuggestionSystem.Common.csproj">
+      <Project>{f72ccae1-3953-45c5-855d-3a8df40a5e81}</Project>
+      <Name>SuggestionSystem.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SuggestionSystem.Data.Models\SuggestionSystem.Data.Models.csproj">
       <Project>{268ba3eb-0f58-4574-bf0b-3340b2f8661c}</Project>
       <Name>SuggestionSystem.Data.Models</Name>
