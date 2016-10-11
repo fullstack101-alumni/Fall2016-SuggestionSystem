@@ -1,15 +1,17 @@
+<!-- stories.component.html -->
+
 <div class="main-content">
-  <ol>
-    <li *ngFor="let item of items; let i = index" class="post">
-      Story #{{i}}
-    </li>
-  </ol>
+  <div class="suggestion-list">
+    <ol>
+      <li *ngFor="let item of items; let i = index" class="post">
+        <item class="item-block" itemID="{{ i + 1 }}"></item>
+      </li>
+    </ol>
+  </div>
   <div class="nav">
-    <a href="" class="prev">
-      ‹ Prev
-    </a>
-    <a href="" class="more">
-      More ›
-    </a>
+    <div class="counter"></div>
+    <button class="paginate left"><i></i><i></i></button>
+    <button class="paginate right"><i></i><i></i></button>
   </div>
 </div>
+
