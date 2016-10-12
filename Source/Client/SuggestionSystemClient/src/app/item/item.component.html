@@ -1,3 +1,26 @@
-<!-- item.component.html -->
+<div *ngIf="!item" class="loading-section">
 
-<p>Story #{{itemID}}<p>
+</div>
+<div *ngIf="item">
+  <div class="item-laptop">
+    <p>
+      <a class="title" href="">
+        {{item.Title}}
+      </a>
+    </p>
+    <div class="subtext-laptop">
+      {{item.UpVotesCount }} Up Votes
+      {{item.DownVotesCount }} Down Votes
+      <a>{{item.Author}}</a>
+      {{item.DateCreated}}
+      <a href="">
+        <span *ngIf="item.CommentsCount !== 0">
+          {{item.CommentsCount}}
+          <span *ngIf="item.CommentsCount === 1">comment</span>
+          <span *ngIf="item.CommentsCount > 1">comments</span>
+        </span>
+        <span *ngIf="item.CommentsCount === 0">discuss</span>
+      </a>
+    </div>
+  </div>
+</div>

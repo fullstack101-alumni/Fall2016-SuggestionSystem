@@ -1,5 +1,3 @@
-// item.component.ts
-
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
-  @Input() itemID: number;
+  @Input() item;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

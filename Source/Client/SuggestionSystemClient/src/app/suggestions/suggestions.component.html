@@ -1,10 +1,8 @@
-<!-- stories.component.html -->
-
 <div class="main-content">
-  <div class="suggestion-list">
+  <div class="suggestion-list" *ngIf="items">
     <ol>
-      <li *ngFor="let item of items; let i = index" class="post">
-        <item class="item-block" itemID="{{ i + 1 }}"></item>
+      <li *ngFor="let item of items.Items" class="post">
+        <item class="item-block" [item]="item"></item>
       </li>
     </ol>
   </div>
