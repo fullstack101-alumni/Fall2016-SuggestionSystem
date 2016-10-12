@@ -29,8 +29,6 @@
         [AllowAnonymous]
         public IHttpActionResult Get(int page = SuggestionsConstants.DefaultPage, int itemsPerPage = SuggestionsConstants.RecommendedSuggestionsPerPage, string orderBy = SuggestionsConstants.DefaultOrderBy, string search = null, string status = null, bool onlyMine = false, bool onlyUpVoted = false)
         {
-            return this.Ok("test");
-
             var userId = this.User.Identity.GetUserId();
 
             var result = this.suggestions
