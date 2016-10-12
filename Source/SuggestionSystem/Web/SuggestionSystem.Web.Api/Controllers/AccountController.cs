@@ -387,7 +387,8 @@
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            // TODO: Change redirect
+            return this.Redirect("http://google.com");
         }
 
         // POST api/Account/RegisterExternal

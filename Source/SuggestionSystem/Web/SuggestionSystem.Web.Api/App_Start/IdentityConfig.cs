@@ -7,6 +7,7 @@
     using SuggestionSystem.Data.Models;
     using SuggestionSystem.Data;
     using Services.Data;
+
     public class ApplicationUserManager : UserManager<User>
     {
         public ApplicationUserManager(IUserStore<User> store)
