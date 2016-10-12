@@ -95,8 +95,8 @@ IF !ERRORLEVEL! NEQ 0 (
 
 :: 4. Running tests 
 echo Running tests 
-%MSBUILD_PATH% "%DEPLOYMENT_SOURCE%\Source\SuggestionSystem\Tests\SuggestionSystem.Web.Api.Tests\SuggestionSystem.Web.Api.Tests.csproj" /nologo /verbosity:m /t:Build /p:Configuration=Debug
-call "tools/nunit-console.exe" "%DEPLOYMENT_SOURCE%\CloudSiteTests\bin\Debug\CloudSiteTests.dll"
+vstest.console.exe "%DEPLOYMENT_SOURCE%\Source\SuggestionSystem\Tests\SuggestionSystem.Web.Api.Tests\bin\Release\SuggestionSystem.Web.Api.Tests.dll" 
+IF !ERRORLEVEL! NEQ 0 goto error 
  
 IF !ERRORLEVEL! NEQ 0 goto error
 
