@@ -24,7 +24,7 @@
             controller
                 .Calling(c => c.Get(1, 20, "DateCreated", null, null, false, false))
                 .ShouldReturn()
-                .Null();
+                .Ok();
         }
     }
 }

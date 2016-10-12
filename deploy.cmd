@@ -81,13 +81,11 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 ) ELSE (
   call :ExecuteCmd "%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Source\SuggestionSystem\Web\SuggestionSystem.Web.Api\SuggestionSystem.Web.Api.csproj" /nologo /verbosity:m /t:Build /p:AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release;UseSharedCompilation=false /p:SolutionDir="%DEPLOYMENT_SOURCE%\Source\SuggestionSystem\\" %SCM_BUILD_ARGS%
 )
-
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 3. Building test projects 
 echo Building test projects 
 "%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Source\SuggestionSystem\SuggestionSystem.sln" /p:Configuration=Release;VisualStudioVersion=14.0 /verbosity:m /p:Platform="Any CPU" 
-
 IF !ERRORLEVEL! NEQ 0 (
  	echo Build failed with ErrorLevel !0!
  	goto error
@@ -97,15 +95,12 @@ IF !ERRORLEVEL! NEQ 0 (
 echo Running tests 
 vstest.console.exe "%DEPLOYMENT_SOURCE%\Source\SuggestionSystem\Tests\SuggestionSystem.Web.Api.Tests\bin\Release\SuggestionSystem.Web.Api.Tests.dll" 
 IF !ERRORLEVEL! NEQ 0 goto error 
- 
-IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 5. KuduSync
 echo KudoSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_TEMP%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
-  IF !ERRORLEVEL! NEQ 0 goto error
-)
+  IF !ERRORLEVEL! NEQ 0 goto error)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 goto end
