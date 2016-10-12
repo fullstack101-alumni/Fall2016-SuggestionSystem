@@ -35,10 +35,10 @@ namespace SuggestionSystem.Data.Migrations
                 var manager = new UserManager<User>(store);
 
                 var admin = new User { Email = "hns150@aubg.edu", EmailConfirmed = true, UserName = "hns150@aubg.edu" };
-                manager.CreateAsync(admin, "Hristo1!");
+                manager.Create(admin, "Hristo1!");
 
-                var rolesToAdd = new string[] { "User", "Admin" };
-                manager.AddToRolesAsync(admin.Id, rolesToAdd);
+                var rolesToAdd = new string[] { UserConstants.UserRole, UserConstants.AdminRole };
+                manager.AddToRoles(admin.Id, rolesToAdd);
             }
         }
     }
