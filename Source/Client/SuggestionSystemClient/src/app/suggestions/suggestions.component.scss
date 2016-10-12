@@ -4,6 +4,10 @@ $angle: 40deg;
 $angleHover: 30deg;
 $angleActive: 25deg;
 
+.main-content{
+  height: auto;
+}
+
 .suggestion-list{
   padding-bottom: 18px;
 }
@@ -32,6 +36,7 @@ button {
 .paginate {
   position: relative;
   margin: 0px;
+  margin-bottom: 0px;
   width: $size;
   height: $size;
   cursor: pointer;
@@ -44,7 +49,7 @@ button {
 
   i {
     position: absolute;
-    top: 40%;
+    top: -100%;
     left: 0;
     width: $size;
     height: $thickness;
