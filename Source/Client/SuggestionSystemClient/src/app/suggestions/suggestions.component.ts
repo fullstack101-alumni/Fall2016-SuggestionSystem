@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute } from '@angular/router';
+import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
 
 @Component({
   selector: 'app-suggestions',
@@ -6,13 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./suggestions.component.scss']
 })
 export class SuggestionsComponent implements OnInit {
-  items: number[];
+  items;
 
-  constructor() {
-    this.items = Array(30).map((x,i)=>i);
-  }
+  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) {}
 
   ngOnInit() {
+    this._suggestionBoxAubgApiService.fetchSuggestions(1)
+      .subscribe(
+        items => this.items = items,
+        error => console.log('Error fetching stories'));
   }
-
 }

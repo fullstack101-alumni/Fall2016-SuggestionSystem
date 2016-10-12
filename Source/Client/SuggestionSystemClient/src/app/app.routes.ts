@@ -7,12 +7,8 @@ import { NewSuggestionComponent } from './new-suggestion/new-suggestion.componen
 import { ItemCommentsComponent } from './item-comments/item-comments.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'news/1', pathMatch : 'full'},
-  {path: 'news/:page', component: SuggestionsComponent, data: {storiesType: 'news'}},
-  {path: 'newest/:page', component: SuggestionsComponent, data: {storiesType: 'newest'}},
-  {path: 'show/:page', component: SuggestionsComponent, data: {storiesType: 'show'}},
-  {path: 'ask/:page', component: SuggestionsComponent, data: {storiesType: 'ask'}},
-  {path: 'jobs/:page', component: SuggestionsComponent, data: {storiesType: 'jobs'}},
+  {path: '', redirectTo: 'suggestions/1', pathMatch : 'full'},
+  {path: 'suggestions/:page', component: SuggestionsComponent, data: {storiesType: 'suggestions'}},
   {path: 'item/:id', component: ItemCommentsComponent},
   {path: 'new_suggestion', component: NewSuggestionComponent}
 ];

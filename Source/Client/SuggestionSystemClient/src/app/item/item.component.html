@@ -1,34 +1,26 @@
-<!--&lt;!&ndash; item.component.html &ndash;&gt;-->
+<div *ngIf="!item" class="loading-section">
 
-<!--<div *ngIf="!item" class="loading-section">-->
-  <!--&lt;!&ndash; You can add a loading indicator here if you want to :) </i> &ndash;&gt;-->
-<!--</div>-->
-<!--<div *ngIf="item">-->
-  <!--<div class="item-laptop">-->
-    <!--<p>-->
-      <!--<a class="title" href="{{item.url}}">-->
-        <!--{{item.title}}-->
-      <!--</a>-->
-      <!--<span class="domain">{{item.url | domain}}</span>-->
-    <!--</p>-->
-    <!--<div class="subtext-laptop">-->
-      <!--{{item.score}} points by-->
-      <!--<a href="">{{item.by}}</a>-->
-      <!--{{ (item.time | amFromUnix) | amTimeAgo }}-->
-      <!--<a href="">-->
-        <!--<span *ngIf="item.descendants !== 0">-->
-          <!--{{item.descendants}}-->
-          <!--<span *ngIf="item.descendants === 1">comment</span>-->
-          <!--<span *ngIf="item.descendants > 1">comments</span>-->
-        <!--</span>-->
-        <!--<span *ngIf="item.descendants === 0">discuss</span>-->
-      <!--</a>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--<div class="item-mobile">-->
-    <!--&lt;!&ndash; Markup that shows only on mobile (to give the app a-->
-    <!--responsive mobile feel). Same attributes as above-->
-    <!--nothing really new here (but refer to the source-->
-    <!--file if you're interested) &ndash;&gt;-->
-  <!--</div>-->
-<!--</div>-->
+</div>
+<div *ngIf="item">
+  <div class="item-laptop">
+    <p>
+      <a class="title" href="">
+        {{item.Title}}
+      </a>
+    </p>
+    <div class="subtext-laptop">
+      {{item.UpVotesCount }} Up Votes
+      {{item.DownVotesCount }} Down Votes
+      <a>{{item.Author}}</a>
+      {{item.DateCreated}}
+      <a href="">
+        <span *ngIf="item.CommentsCount !== 0">
+          {{item.CommentsCount}}
+          <span *ngIf="item.CommentsCount === 1">comment</span>
+          <span *ngIf="item.CommentsCount > 1">comments</span>
+        </span>
+        <span *ngIf="item.CommentsCount === 0">discuss</span>
+      </a>
+    </div>
+  </div>
+</div>
