@@ -82,14 +82,6 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
 
 IF !ERRORLEVEL! NEQ 0 goto error
 
-:: 3. Building test projects 
-rem echo Building test projects 
-"%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Source\SuggestionSystem\SuggestionSystem.sln" /p:Configuration=Release;VisualStudioVersion=14.0 /verbosity:m /p:Platform="Any CPU" 
-
-IF !ERRORLEVEL! NEQ 0 (
- 	echo Build failed with ErrorLevel !0!
- 	goto error
-)
 
 :: 4. Running tests 
 echo Running tests 
