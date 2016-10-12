@@ -93,8 +93,10 @@ IF !ERRORLEVEL! NEQ 0 (
 
 :: 4. Running tests 
 echo Running tests 
-vstest.console.exe "%DEPLOYMENT_SOURCE%\WebWithTests.Tests\bin\Release\WebWithTests.Tests.dll" 
-IF !ERRORLEVEL! NEQ 0 goto error 
+%MSBUILD_PATH% "%DEPLOYMENT_SOURCE%\Source\SuggestionSystem\Tests\SuggestionSystem.Web.Api.Tests\SuggestionSystem.Web.Api.Tests.csproj" /nologo /verbosity:m /t:Build /p:Configuration=Debug
+call "tools/nunit-console.exe" "%DEPLOYMENT_SOURCE%\CloudSiteTests\bin\Debug\CloudSiteTests.dll"
+ 
+IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 5. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
