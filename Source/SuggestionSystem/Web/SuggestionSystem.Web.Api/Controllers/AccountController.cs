@@ -344,18 +344,51 @@
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
+            if (!(model.Email.EndsWith("@aubg.edu") || model.Email.EndsWith("@aubg.bg")))
+            {
+                return BadRequest("Only aubg.bg and aubg.edu emails can be registered");
+            }
 
+            var user = new User() { UserName = model.Email, Email = model.Email };
+            
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult roleResult = this.UserManager.AddToRole(user.Id, UserConstants.UserRole);
+
+            if (!(result.Succeeded || roleResult.Succeeded))
+            {
+                return GetErrorResult(result);
+            }
+
+            var emailConfirmationToken = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var encodedToken = HttpUtility.UrlEncode(emailConfirmationToken);
+
+            var callbackUrl = Url.Link("DefaultApi", new { Controller = "Account/ConfirmEmail", userId = user.Id, encodedToken = encodedToken });
+            var emailBody = string.Format("Please confirm your account by clicking <a href={0}>here</a>", callbackUrl);
+            await UserManager.SendEmailAsync(user.Id, "Confirm your SuggestionBox account!", emailBody);
+
+            return Ok();
+        }
+
+        [Route("ConfirmEmail")]
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId, string encodedToken)
+        {
+            if (userId == null || encodedToken == null)
+            {
+                return NotFound();
+            }
+
+            var decodedToken = HttpUtility.UrlDecode(encodedToken);
+            var result = await UserManager.ConfirmEmailAsync(userId, decodedToken);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
-            this.UserManager.AddToRole(user.Id, UserConstants.UserRole);
-
-            return Ok();
+            // TODO: Change redirect
+            return this.Redirect("http://google.com");
         }
 
         // POST api/Account/RegisterExternal
@@ -402,10 +435,10 @@
             base.Dispose(disposing);
         }
 
-        [Route("users/{id:guid}/roles")]
+        [Route("{id:guid}/assignRoles")]
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IHttpActionResult> AssignRolesToUser(string id, string[] rolesToAssign)
+        public async Task<IHttpActionResult> AssignRolesToUser(string id, [FromBody]string[] rolesToAssign)
         {
             if (rolesToAssign == null)
             {
@@ -420,8 +453,8 @@
             }
 
             var currentRoles = await this.UserManager.GetRolesAsync(appUser.Id);
-
-            var rolesNotExists = rolesToAssign.Except(this.RoleManager.Roles.Select(x => x.Name)).ToArray();
+            var existingRoles = this.RoleManager.Roles.Select(x => x.Name);
+            var rolesNotExists = rolesToAssign.Except(existingRoles).ToArray();
 
             if (rolesNotExists.Count() > 0)
             {

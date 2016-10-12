@@ -40,6 +40,12 @@ namespace SuggestionSystem.Web.Api.Providers
                 return;
             }
 
+            if (!user.EmailConfirmed)
+            {
+                context.SetError("invalid_grant", "Account not confirmed!");
+                return;
+            }
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,

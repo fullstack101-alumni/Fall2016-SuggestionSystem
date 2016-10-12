@@ -39,6 +39,22 @@
       <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -68,6 +84,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -91,14 +108,45 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ControllerTests\SuggestionsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setups\Repositories.cs" />
+    <Compile Include="Setups\Services.cs" />
+    <Compile Include="TestInit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ControllerTests\" />
+    <ProjectReference Include="..\..\Data\SuggestionSystem.Data.Models\SuggestionSystem.Data.Models.csproj">
+      <Project>{268ba3eb-0f58-4574-bf0b-3340b2f8661c}</Project>
+      <Name>SuggestionSystem.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\SuggestionSystem.Data\SuggestionSystem.Data.csproj">
+      <Project>{c0360302-964f-4cd8-9c76-2c498b043ae7}</Project>
+      <Name>SuggestionSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\SuggestionSystem.Services.Data\SuggestionSystem.Services.Data.csproj">
+      <Project>{5732411a-2759-4b96-a39e-3b8b47317901}</Project>
+      <Name>SuggestionSystem.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SuggestionSystem.Common\SuggestionSystem.Common.csproj">
+      <Project>{f72ccae1-3953-45c5-855d-3a8df40a5e81}</Project>
+      <Name>SuggestionSystem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\SuggestionSystem.Web.Api\SuggestionSystem.Web.Api.csproj">
+      <Project>{e83a4d50-fd09-4dc5-913a-f3faacbf4573}</Project>
+      <Name>SuggestionSystem.Web.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\SuggestionSystem.Web.DataTransferModels\SuggestionSystem.Web.DataTransferModels.csproj">
+      <Project>{fedb9087-8163-498c-86bf-79fe0e7d7164}</Project>
+      <Name>SuggestionSystem.Web.DataTransferModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\SuggestionSystem.Web.Infrastructure\SuggestionSystem.Web.Infrastructure.csproj">
+      <Project>{3bcf6b71-96eb-4725-9412-d7fe3e16ac9a}</Project>
+      <Name>SuggestionSystem.Web.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

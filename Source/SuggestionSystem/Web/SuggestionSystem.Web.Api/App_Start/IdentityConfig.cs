@@ -6,6 +6,7 @@
     using Microsoft.Owin;
     using SuggestionSystem.Data.Models;
     using SuggestionSystem.Data;
+    using Services.Data;
 
     public class ApplicationUserManager : UserManager<User>
     {
@@ -32,6 +33,9 @@
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
+
+            manager.EmailService = new EmailService();
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {

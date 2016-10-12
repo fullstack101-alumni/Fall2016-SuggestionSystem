@@ -5,6 +5,7 @@ namespace SuggestionSystem.Data.Migrations
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity;
     using Common.Constants;
+    using Models;
 
     public  sealed class Configuration : DbMigrationsConfiguration<SuggestionSystemDbContext>
     {
@@ -26,6 +27,18 @@ namespace SuggestionSystem.Data.Migrations
                 
                 manager.Create(user);
                 manager.Create(admin);
+            }
+
+            if (!context.Users.Any(u => u.UserName == "hns150@aubg.edu"))
+            {
+                var store = new UserStore<User>(context);
+                var manager = new UserManager<User>(store);
+
+                var admin = new User { Email = "hns150@aubg.edu", EmailConfirmed = true, UserName = "hns150@aubg.edu" };
+                manager.Create(admin, "Hristo1!");
+
+                var rolesToAdd = new string[] { UserConstants.UserRole, UserConstants.AdminRole };
+                manager.AddToRoles(admin.Id, rolesToAdd);
             }
         }
     }

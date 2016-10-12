@@ -12,7 +12,7 @@
         public const int MaximalSuggestionsPerPage = 40;
         public const int RecommendedSuggestionsPerPage = 20;
 
-        public const int DefaultPage = 0;
+        public const int DefaultPage = 1;
         public const string DefaultOrderBy = "DateCreated";
     }
 }
