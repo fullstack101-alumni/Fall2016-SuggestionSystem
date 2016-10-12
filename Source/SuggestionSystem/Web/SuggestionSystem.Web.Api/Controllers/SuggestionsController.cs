@@ -54,12 +54,12 @@
 
             if (!this.suggestions.UserIsEligibleToModifySuggestion(suggestion, this.User.Identity.GetUserId(), this.User.IsInRole(UserConstants.AdminRole)))
             {
-                return this.BadRequest("You are not allowed to modify this suggestion!");
+                return this.BadRequest(SuggestionsConstants.NoPermissionToDelete);
             }
 
             this.suggestions.Delete(suggestion);
 
-            return this.Ok("Suggestion deleted.");
+            return this.Ok(SuggestionsConstants.SuggestionDeleted);
         }
 
         [Authorize]
@@ -72,12 +72,12 @@
 
             if (suggestions == null)
             {
-                return this.BadRequest("Suggestion does not exist");
+                return this.BadRequest(SuggestionsConstants.SuggestionNotExist);
             }
 
             if (!this.suggestions.UserIsEligibleToModifySuggestion(suggestion, this.User.Identity.GetUserId(), this.User.IsInRole(UserConstants.AdminRole)))
             {
-                return this.BadRequest("You are not allowed to modify this suggestion!");
+                return this.BadRequest(SuggestionsConstants.NoPermissionToEdit);
             }
 
             var newSuggestion = this.suggestions
@@ -95,9 +95,7 @@
             var newSuggestion = this.suggestions
                 .AddSuggestion(userId, Mapper.Map<Suggestion>(model));
 
-            return this.Created(
-                string.Format("/api/suggestions/{0}", newSuggestion.Id),
-                Mapper.Map<SuggestionResponseModel>(newSuggestion));
+            return this.Ok(Mapper.Map<SuggestionResponseModel>(newSuggestion));
         }
 
         [Authorize]
@@ -112,12 +110,12 @@
 
             if (suggestion == null)
             {
-                return this.BadRequest("Suggestion does not exist");
+                return this.BadRequest(SuggestionsConstants.SuggestionNotExist);
             }
             
             if (!this.suggestions.UserIsEligibleToGetSuggestion(suggestion, this.User.IsInRole(UserConstants.AdminRole)))
             {
-                return this.BadRequest("You do not have permission to comment that suggestion!");
+                return this.BadRequest(SuggestionsConstants.NoPermissionToComment);
             }
 
             var newComment = this.comments
@@ -143,12 +141,12 @@
 
             if (suggestion == null)
             {
-                return this.BadRequest("Suggestion does not exist");
+                return this.BadRequest(SuggestionsConstants.SuggestionNotExist);
             }
 
             if (!this.suggestions.UserIsEligibleToGetSuggestion(suggestion, this.User.IsInRole(UserConstants.AdminRole)))
             {
-                return this.BadRequest("You do not have permission to vote for that suggestion!");
+                return this.BadRequest(SuggestionsConstants.NoPermissionToVote);
             }
 
             var userId = this.User.Identity.GetUserId();
@@ -195,7 +193,7 @@
             return this.Ok(Mapper.Map<SuggestionVoteResponseModel>(updatedSuggestion));
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserConstants.AdminRole)]
         [HttpPut]
         [ValidateModel]
         [Route("api/suggestions/{id}/changeStatus")]
@@ -219,7 +217,7 @@
         [AllowAnonymous]
         [HttpGet]
         [Route("api/suggestions/{id}/comments")]
-        public IHttpActionResult GetComments(int id, int from = 0, int count = 5)
+        public IHttpActionResult GetComments(int id, int from, int count = CommentsConstants.DefaultCommentsCountPerRequest)
         {
             // TODO: Extract constants for from and count
             var suggestion = this.suggestions
@@ -233,7 +231,7 @@
 
             if (!this.suggestions.UserIsEligibleToGetSuggestion(suggestion, this.User.IsInRole(UserConstants.AdminRole)))
             {
-                return this.BadRequest("You do not have permission to view the suggestion's comments!");
+                return this.BadRequest(SuggestionsConstants.NoPermissionToView);
             }
 
             var comments = this.comments

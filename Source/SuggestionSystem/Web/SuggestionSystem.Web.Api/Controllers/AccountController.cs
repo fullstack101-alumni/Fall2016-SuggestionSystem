@@ -437,7 +437,7 @@
 
         [Route("{id:guid}/assignRoles")]
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserConstants.AdminRole)]
         public async Task<IHttpActionResult> AssignRolesToUser(string id, [FromBody]string[] rolesToAssign)
         {
             if (rolesToAssign == null)
