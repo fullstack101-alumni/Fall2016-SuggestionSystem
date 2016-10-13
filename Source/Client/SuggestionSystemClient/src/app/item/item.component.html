@@ -1,26 +1,26 @@
-<div *ngIf="!item" class="loading-section">
-
-</div>
-<div *ngIf="item">
-  <div class="item-laptop">
-    <p>
-      <a class="title" href="">
-        {{item.Title}}
-      </a>
-    </p>
-    <div class="subtext-laptop">
-      {{item.UpVotesCount }} Up Votes
-      {{item.DownVotesCount }} Down Votes
-      <a>{{item.Author}}</a>
-      {{item.DateCreated}}
-      <a href="">
-        <span *ngIf="item.CommentsCount !== 0">
-          {{item.CommentsCount}}
-          <span *ngIf="item.CommentsCount === 1">comment</span>
-          <span *ngIf="item.CommentsCount > 1">comments</span>
-        </span>
-        <span *ngIf="item.CommentsCount === 0">discuss</span>
-      </a>
+<div class="panel panel-{{ item.Status }}">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-11">
+        <h3 class="panel-title">{{ item.Title }}</h3>
+        <small>Created by: {{ item.Author }} on {{ item.DateCreated }}</small>
+      </div>
+      <div class="col-md-1">
+        <div>
+          {{ item.UpVotesCount }}
+        </div>
+        <div>
+          {{ item.DownVotesCount }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+      {{ item.Content }}
+    <div class="row">
+      <div class="col-md-offset-10 col-md-2" style="text-align:right;">
+        <small>Comments: {{ item.CommentsCount }}</small>
+      </div>
     </div>
   </div>
 </div>

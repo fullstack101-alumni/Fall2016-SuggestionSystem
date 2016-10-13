@@ -10,10 +10,9 @@ import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { FooterComponent } from './footer/footer.component';
 import { ItemComponent } from './item/item.component';
 import { NewSuggestionComponent } from './new-suggestion/new-suggestion.component';
-import { ItemCommentsComponent } from './item-comments/item-comments.component';
-import { HotSuggestionsComponent } from './hot-suggestions/hot-suggestions.component';
-import { CommentTreeComponent } from './comment-tree/comment-tree.component';
 import { CommentComponent } from './comment/comment.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -23,10 +22,9 @@ import { CommentComponent } from './comment/comment.component';
     FooterComponent,
     ItemComponent,
     NewSuggestionComponent,
-    ItemCommentsComponent,
-    HotSuggestionsComponent,
-    CommentTreeComponent,
-    CommentComponent
+    CommentComponent,
+    LogInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -37,4 +35,5 @@ import { CommentComponent } from './comment/comment.component';
   providers: [SuggestionboxaubgApiService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
