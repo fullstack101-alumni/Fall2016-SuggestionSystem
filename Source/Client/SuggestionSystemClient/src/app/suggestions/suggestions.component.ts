@@ -7,23 +7,20 @@ import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
   templateUrl: './suggestions.component.html',
   styleUrls: ['./suggestions.component.scss']
 })
+
 export class SuggestionsComponent implements OnInit {
   pageSub: any;
   items;
-  pageNum: number;
-  listStart: number;
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
               private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.pageSub = this.route.params.subscribe(params => {
-      this.pageNum = +params['page'] ? +params['page'] : 1;
-    this._suggestionBoxAubgApiService.fetchSuggestions(this.pageNum)
+    this._suggestionBoxAubgApiService.fetchSuggestions(params['page'])
       .subscribe(
-        items => this.items = items,
-        error => console.log('Error fetching stories'),
-        () => this.listStart = ((this.pageNum - 1) * 20) + 1);
+        items => this.items = items.Items,
+        error => console.log('Error fetching stories'))
     });
   }
 }
