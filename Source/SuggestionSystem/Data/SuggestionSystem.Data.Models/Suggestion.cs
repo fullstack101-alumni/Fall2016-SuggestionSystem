@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Common.Constants;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     public class Suggestion
     {
         private ICollection<Vote> votes;
@@ -23,19 +23,23 @@
 
         public virtual User User { get; set; }
 
+        [Index(IsUnique = true)]
         [Required]
         [MinLength(SuggestionsConstants.TitleMinLength)]
         [MaxLength(SuggestionsConstants.TitleMaxLength)]
         public string Title { get; set; }
 
+        [Index]
         [Required]
         [MinLength(SuggestionsConstants.ContentMinLength)]
         [MaxLength(SuggestionsConstants.ContentMaxLength)]
         public string Content { get; set; }
 
+        [Index]
         [Required]
         public SuggestionStatus Status { get; set; }
 
+        [Index]
         [Required]
         public DateTime DateCreated { get; set; }
 

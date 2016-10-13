@@ -4,5 +4,7 @@
     {
         public const int ContentMinLength = 20;
         public const int ContentMaxLength = 200;
+
+        public const int DefaultCommentsCountPerRequest = 10;
     }
 }
