@@ -4,15 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { NewSuggestionComponent } from './new-suggestion/new-suggestion.component';
-import { ItemCommentsComponent } from './item-comments/item-comments.component';
-import { HotSuggestionsComponent } from './hot-suggestions/hot-suggestions.component'
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'suggestions/1', pathMatch : 'full'},
   {path: 'suggestions/:page', component: SuggestionsComponent},
-  {path: 'hot_suggestions/:page', component: HotSuggestionsComponent},
-  {path: 'item/:id', component: ItemCommentsComponent},
-  {path: 'new_suggestion', component: NewSuggestionComponent}
+  {path: 'new_suggestion', component: NewSuggestionComponent},
+  {path: 'login', component: LogInComponent},
+  {path: 'signup', component: SignUpComponent}
 ];
 
 export const routing = RouterModule.forRoot(routes);
