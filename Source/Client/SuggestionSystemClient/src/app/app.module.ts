@@ -11,6 +11,9 @@ import { FooterComponent } from './footer/footer.component';
 import { ItemComponent } from './item/item.component';
 import { NewSuggestionComponent } from './new-suggestion/new-suggestion.component';
 import { ItemCommentsComponent } from './item-comments/item-comments.component';
+import { HotSuggestionsComponent } from './hot-suggestions/hot-suggestions.component';
+import { CommentTreeComponent } from './comment-tree/comment-tree.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { ItemCommentsComponent } from './item-comments/item-comments.component';
     FooterComponent,
     ItemComponent,
     NewSuggestionComponent,
-    ItemCommentsComponent
+    ItemCommentsComponent,
+    HotSuggestionsComponent,
+    CommentTreeComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

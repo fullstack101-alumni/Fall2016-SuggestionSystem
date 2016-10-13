@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
 
@@ -9,14 +8,22 @@ import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
   styleUrls: ['./suggestions.component.scss']
 })
 export class SuggestionsComponent implements OnInit {
+  pageSub: any;
   items;
+  pageNum: number;
+  listStart: number;
 
-  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) {}
+  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this._suggestionBoxAubgApiService.fetchSuggestions(1)
+    this.pageSub = this.route.params.subscribe(params => {
+      this.pageNum = +params['page'] ? +params['page'] : 1;
+    this._suggestionBoxAubgApiService.fetchSuggestions(this.pageNum)
       .subscribe(
         items => this.items = items,
-        error => console.log('Error fetching stories'));
+        error => console.log('Error fetching stories'),
+        () => this.listStart = ((this.pageNum - 1) * 20) + 1);
+    });
   }
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
+
 
 @Component({
   selector: 'app-item-comments',
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-comments.component.scss']
 })
 export class ItemCommentsComponent implements OnInit {
-
-  constructor() { }
+  sub: any;
+  item;
+  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
+              private route: ActivatedRoute ) { }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      let itemID = +params['id'];
+      this._suggestionBoxAubgApiService.fetchComments(itemID).subscribe(data => {
+        this.item = data;
+      }, error => console.log('Could not load item' + itemID));
+    });
   }
 
 }
