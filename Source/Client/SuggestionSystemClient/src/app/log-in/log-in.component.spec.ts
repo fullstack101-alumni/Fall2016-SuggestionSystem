@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { CommentTreeComponent } from './comment-tree.component';
+import { LogInComponent } from './log-in.component';
 
-describe('Component: CommentTree', () => {
+describe('Component: LogIn', () => {
   it('should create an instance', () => {
-    let component = new CommentTreeComponent();
+    let component = new LogInComponent();
     expect(component).toBeTruthy();
   });
 });
