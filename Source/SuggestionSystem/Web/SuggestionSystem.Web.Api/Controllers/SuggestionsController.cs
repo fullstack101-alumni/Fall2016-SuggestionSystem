@@ -47,7 +47,7 @@
                 .GetSuggestionById(id)
                 .SingleOrDefault();
 
-            if(suggestions == null)
+            if(suggestion == null)
             {
                 return this.NotFound();
             }
@@ -70,7 +70,7 @@
                .GetSuggestionById(id)
                .SingleOrDefault();
 
-            if (suggestions == null)
+            if (suggestion == null)
             {
                 return this.BadRequest("Suggestion does not exist");
             }

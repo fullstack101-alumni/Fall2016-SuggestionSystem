@@ -5,6 +5,7 @@
     using SuggestionSystem.Services.Data.Contracts;
     using SuggestionSystem.Data.Repositories;
     using System.Linq;
+    using Web.DataTransferModels.Comment;
 
     public class CommentService : ICommentService
     {
@@ -34,6 +35,33 @@
                 .OrderBy(c => c.DateCreated)
                 .Skip(from)
                 .Take(count);
+        }
+
+        public IQueryable<Comment> GetCommentById(int id)
+        {
+            return this.comments.All().Where(s => s.Id == id);
+        }
+
+        public bool UserIsEligibleToModifyComment(Comment comment, string userId, bool isAdmin)
+        {
+            return (isAdmin) ||
+                !(comment.UserId == null ||
+                comment.UserId != userId);
+        }
+
+        public void Delete(Comment comment)
+        {
+            this.comments.Delete(comment);
+            this.comments.SaveChanges();
+        }
+
+        public Comment UpdateComment(Comment commentToUpdate, CommentRequestModel model)
+        {
+            commentToUpdate.Content = model.Content;
+
+            this.comments.SaveChanges();
+
+            return commentToUpdate;
         }
     }
 }
