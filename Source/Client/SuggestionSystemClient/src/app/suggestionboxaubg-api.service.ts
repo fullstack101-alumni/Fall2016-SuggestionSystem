@@ -31,4 +31,9 @@ export class SuggestionboxaubgApiService {
     return this.http.post(`${this.baseUrl}/api/Suggestions/${id}/comment`, {"Id": id, "Content": content})
       .map(response => response.json());
   }
+
+  vote(id: number, type: number) {
+    return this.http.put(`${this.baseUrl}/api/Suggestions/${id}/vote`, {"Id": id, "Type": type})
+      .map(response => response.json());
+  }
 }
