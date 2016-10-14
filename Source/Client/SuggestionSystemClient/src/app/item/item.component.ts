@@ -36,4 +36,15 @@ export class ItemComponent implements OnInit {
       error => console.log("Error posting comment")
     )
   }
+
+  vote(voteType){
+    this._suggestionBoxAubgApiService.vote(this.item.Id, voteType)
+      .subscribe(
+        items => {
+          this.item.UpVotesCount = items.UpVotesCount;
+          this.item.DownVotesCount = items.DownVotesCount;
+        },
+        error => console.log("Error voting for a suggestion")
+      )
+  }
 }
