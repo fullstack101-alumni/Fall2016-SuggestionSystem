@@ -17,12 +17,18 @@ export class SuggestionboxaubgApiService {
   }
 
   registerUser(email: string, password: string, confirmPassword: string){
-    return this.http.post(`${this.baseUrl}/api/Account/Register`, {"Email": email, "Password":password, "ConfirmPassword":confirmPassword});
+    return this.http.post(`${this.baseUrl}/api/Account/Register`, {"Email": email, "Password":password, "ConfirmPassword":confirmPassword})
+      .map(response => response.json());
 
   }
 
   fetchComments(id: number, from: number, count: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/Suggestions/${id}/comments?from=${from}&count=${count}`)
+      .map(response => response.json());
+  }
+
+  postComment(id: number, content: string) {
+    return this.http.post(`${this.baseUrl}/api/Suggestions/${id}/comment`, {"Id": id, "Content": content})
       .map(response => response.json());
   }
 }
