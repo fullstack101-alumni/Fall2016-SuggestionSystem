@@ -25,4 +25,9 @@ export class SuggestionboxaubgApiService {
     return this.http.get(`${this.baseUrl}/api/Suggestions/${id}/comments?from=${from}&count=${count}`)
       .map(response => response.json());
   }
+
+  postComment(id: number, content: string) {
+    return this.http.post(`${this.baseUrl}/api/Suggestions/${id}/comment`, {"Id": id, "Content": content})
+      .map(response => response.json());
+  }
 }

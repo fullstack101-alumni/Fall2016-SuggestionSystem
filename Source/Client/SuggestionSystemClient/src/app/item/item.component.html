@@ -17,10 +17,20 @@
   </div>
   <div class="panel-body">
     {{ item.Content }}
-    <div class="list-group" *ngIf="comments" style="margin-top:20px;">
+    <div class="list-group" style="margin-top:20px;">
       <a class="list-group-item" *ngFor="let comment of comments">
         <h4 class="list-group-item-heading">{{ comment.Content }}</h4>
         <p class="list-group-item-text">{{ comment.Author }} on {{ comment.DateCreated | date}}</p>
+      </a>
+      <a class="list-group-item">
+        <p>
+          <textarea class="form-control" id="comment-content"></textarea>
+        </p>
+        <div class="row">
+          <div class="col-md-offset-11">
+            <button (click)="postComment()" class="btn btn-xs btn-default">Comment</button>
+          </div>
+        </div>
       </a>
     </div>
     <div class="row" style="text-align:center;">
