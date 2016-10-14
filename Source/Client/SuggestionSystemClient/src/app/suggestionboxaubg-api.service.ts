@@ -38,5 +38,9 @@ export class SuggestionboxaubgApiService {
      "isPrivate": isPrivate, "isAnnonymous": isAnnonymous})
        .map(response => response.json());
   }
-  
+
+  vote(id: number, type: number) {
+    return this.http.put(`${this.baseUrl}/api/Suggestions/${id}/vote`, {"Id": id, "Type": type})
+      .map(response => response.json());
+  }
 }
