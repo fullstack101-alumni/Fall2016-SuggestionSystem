@@ -20,7 +20,7 @@
 
         public string Author { get; set; }
 
-        public SuggestionStatus Status { get; set; }
+        public string SuggestionStatus { get; set; }
 
         public int CommentsCount { get; set; }
 
@@ -29,7 +29,8 @@
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Suggestion, SuggestionResponseModel>()
-                .ForMember(s => s.Author, opts => opts.MapFrom(s => s.UserId != null ? s.User.UserName : "Anonymous"));
+                .ForMember(s => s.Author, opts => opts.MapFrom(s => s.UserId != null ? s.User.UserName : "Anonymous"))
+                .ForMember(s => s.SuggestionStatus, opts => opts.MapFrom(s => s.Status.ToString()));
         }
     }
 }
