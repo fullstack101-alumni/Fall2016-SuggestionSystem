@@ -1,28 +1,35 @@
 <div class="col-lg-4 col-lg-offset-1">
 
-  <form class="bs-component">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="bs-component">
     <div class="form-group">
-      <label class="control-label" for="email">Email</label>
-      <input class="form-control" id="email" type="text" value="AUBG email">
+      <label class="control-label" for="email" >Email</label>
+      <input class="form-control" id="email" type="text" placeholder="AUBG email" name ="email" ngModel>
     </div>
 
     <div class="form-group">
       <label class="control-label" for="password">Password</label>
-      <input type="text" class="form-control" id="password">
+      <input type="text" class="form-control" id="password" type="text" name="password" ngModel>
     </div>
 
     <div class="form-group">
       <label class="control-label" for="confirmPassword">Confirm Password</label>
-      <input type="text" class="form-control" id="confirmPassword">
+      <input type="text" class="form-control" id="confirmPassword" type="text" name="confirmPassword" ngModel>
     </div>
 
     <div class="form-group">
       <div class="input-group">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">Submit</button>
+          <button class="btn btn-default" type="submit" >Submit</button>
         </span>
       </div>
     </div>
-    <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></form>
+  </form>
+
+  <div class="alert alert-dismissible alert-danger" *ngIf="response">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>{{response.Message}}</strong> <a class="alert-link">{{response.ModelState}}</a> Submit again.
+  </div>
+
+  {{response._body}}
 
 </div>
