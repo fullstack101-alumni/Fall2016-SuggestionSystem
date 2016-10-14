@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SuggestionBoxaubgApiService } from '../suggestionboxaubg-api.service';
 
 @Component({
   selector: 'app-new-suggestion',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewSuggestionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _suggestionBoxAubgApiService: SuggestionBoxaubgApiService
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
