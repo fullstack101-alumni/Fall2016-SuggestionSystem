@@ -17,7 +17,7 @@ export class ItemComponent implements OnInit {
   ngOnInit() {
     var colors: string[] = ["warning", "primary", "default", "success", "danger"];
     this.panelColor = colors[this.item.Status];
-    this.numberOfCommentsToGet = 1;
+    this.numberOfCommentsToGet = 5;
     this.comments = [];
   }
 
@@ -27,5 +27,13 @@ export class ItemComponent implements OnInit {
       items => {for(var i=0; i < items.length; i++) this.comments.push(items[i])},
       error => console.log("Error fetching comments")
     );
+  }
+
+  postComment() {
+    this._suggestionBoxAubgApiService.postComment(this.item.Id, (<HTMLInputElement>document.getElementById("comment-content")).value)
+    .subscribe(
+      items => this.comments.push(items),
+      error => console.log("Error posting comment")
+    )
   }
 }
