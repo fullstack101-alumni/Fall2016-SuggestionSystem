@@ -8,22 +8,23 @@ import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  email: string
-  password: string
-  confirmPassword: string
-
+  response;
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this._suggestionBoxAubgApiService.registerUser(this.email, this.password, this.confirmPassword)
+  }
+
+  onSubmit(form: any): void {
+    this._suggestionBoxAubgApiService.registerUser(form.email, form.password, form.confirmPassword)
       .subscribe(
-        data => {
-          this.route.navigate="/login";
-          error => console.log('Error fetching stories'))
-        }
-      )
+        response => this.response = response,
+        error => this.response = error,
+        () => console.log(this.response)
+      );
+
+
   }
 
 }
