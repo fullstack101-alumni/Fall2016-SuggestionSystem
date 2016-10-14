@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-11">
         <h3 class="panel-title">{{ item.Title }}</h3>
-        <small>Created by: {{ item.Author }} on {{ item.DateCreated }}</small>
+        <small>Created by: {{ item.Author }} on {{ item.DateCreated | date }}</small>
       </div>
       <div class="col-md-1">
         <div>
@@ -17,10 +17,14 @@
   </div>
   <div class="panel-body">
     {{ item.Content }}
-    <div class="row">
-      <div style="text-align:center;">
-        <small>Comments: {{ item.CommentsCount }}</small>
-      </div>
+    <div class="list-group" *ngIf="comments" style="margin-top:20px;">
+      <a class="list-group-item" *ngFor="let comment of comments">
+        <h4 class="list-group-item-heading">{{ comment.Content }}</h4>
+        <p class="list-group-item-text">{{ comment.Author }} on {{ comment.DateCreated | date}}</p>
+      </a>
+    </div>
+    <div class="row" style="text-align:center;">
+      <button (click)="getComments()" class="button btn-xs btn-warning" [disabled]="this.item.CommentsCount - this.comments.length <= 0">Comments: {{ this.item.CommentsCount - this.comments.length }}</button>
     </div>
   </div>
 </div>
