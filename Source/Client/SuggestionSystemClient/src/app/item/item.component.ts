@@ -7,10 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ItemComponent implements OnInit {
   @Input() item;
+  panelColor: string;
 
   constructor() {}
 
   ngOnInit() {
+    var colors: string[] = ["warning", "primary", "default", "success", "danger"];
+    this.panelColor = colors[this.item.Status];
   }
 
 }
