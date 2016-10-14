@@ -27,8 +27,16 @@ export class SuggestionboxaubgApiService {
       .map(response => response.json());
   }
 
+
   postComment(id: number, content: string) {
     return this.http.post(`${this.baseUrl}/api/Suggestions/${id}/comment`, {"Id": id, "Content": content})
       .map(response => response.json());
   }
+
+  addSuggestion(title: string, content: string, isPrivate: boolean, isAnnonymous: boolean) {
+    return this.http.post(`${this.baseUrl}/api/Suggestions`, {"Title": title, "Content": content,
+     "isPrivate": isPrivate, "isAnnonymous": isAnnonymous})
+       .map(response => response.json());
+  }
+  
 }
