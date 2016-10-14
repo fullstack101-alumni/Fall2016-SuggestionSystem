@@ -16,6 +16,11 @@ export class SuggestionboxaubgApiService {
       .map(response => response.json());
   }
 
+  registerUser(email: string, password: string, confirmPassword: string){
+    return this.http.post(`${this.baseUrl}/api/Account/Register`, {"Email": email, "Password":password, "ConfirmPassword":confirmPassword});
+
+  }
+
   fetchComments(id: number, from: number, count: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/Suggestions/${id}/comments?from=${from}&count=${count}`)
       .map(response => response.json());
