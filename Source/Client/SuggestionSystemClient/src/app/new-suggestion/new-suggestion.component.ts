@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SuggestionBoxaubgApiService } from '../suggestionboxaubg-api.service';
+import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
 
 @Component({
   selector: 'app-new-suggestion',
@@ -9,10 +9,20 @@ import { SuggestionBoxaubgApiService } from '../suggestionboxaubg-api.service';
 })
 export class NewSuggestionComponent implements OnInit {
 
-  constructor(private _suggestionBoxAubgApiService: SuggestionBoxaubgApiService
+  constructor(private _suggestionBoxAubgApiService: SuggestionboxaubgApiService,
               private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit() { 
+  }
+
+  onSubmit(form: any): void {
+    console.log(form);
+    this._suggestionBoxAubgApiService.addSuggestion(form.title, form.suggestion,
+                                                    form.private, form.anonymous)
+    .subscribe(
+      data => alert(data),
+      error => {}
+    );
   }
 
 }
