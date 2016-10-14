@@ -17,7 +17,8 @@ export class SuggestionboxaubgApiService {
   }
 
   registerUser(email: string, password: string, confirmPassword: string){
-    return this.http.post(`${this.baseUrl}/api/Account/Register`, {"Email": email, "Password":password, "ConfirmPassword":confirmPassword});
+    return this.http.post(`${this.baseUrl}/api/Account/Register`, {"Email": email, "Password":password, "ConfirmPassword":confirmPassword})
+      .map(response => response.json());
 
   }
 

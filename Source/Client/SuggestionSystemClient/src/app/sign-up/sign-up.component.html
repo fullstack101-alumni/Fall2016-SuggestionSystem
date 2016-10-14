@@ -1,5 +1,23 @@
 <div class="col-lg-4 col-lg-offset-1">
 
+  <div class="alert alert-dismissible alert-danger" *ngIf="errors">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <div *ngIf = "usernameFlag">
+      <div *ngFor = "let key of keys">
+        <strong>{{errors[key]}}</strong>
+      </div>
+    </div>
+    <div *ngIf = "!usernameFlag">
+        <strong>{{errors}}</strong>
+    </div>
+    <strong>Submit again.</strong>
+  </div>
+
+  <div class="alert alert-dismissible alert-success" *ngIf="success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Please confirm your email.</strong>
+  </div>
+
   <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="bs-component">
     <div class="form-group">
       <label class="control-label" for="email" >Email</label>
@@ -8,12 +26,12 @@
 
     <div class="form-group">
       <label class="control-label" for="password">Password</label>
-      <input type="text" class="form-control" id="password" type="text" name="password" ngModel>
+      <input type="password" class="form-control" id="password"  name="password" ngModel>
     </div>
 
     <div class="form-group">
       <label class="control-label" for="confirmPassword">Confirm Password</label>
-      <input type="text" class="form-control" id="confirmPassword" type="text" name="confirmPassword" ngModel>
+      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" ngModel>
     </div>
 
     <div class="form-group">
@@ -24,12 +42,5 @@
       </div>
     </div>
   </form>
-
-  <div class="alert alert-dismissible alert-danger" *ngIf="response">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>{{response.Message}}</strong> <a class="alert-link">{{response.ModelState}}</a> Submit again.
-  </div>
-
-  {{response._body}}
 
 </div>

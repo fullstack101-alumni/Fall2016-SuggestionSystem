@@ -8,7 +8,10 @@ import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  response;
+  errors;
+  usernameFlag;
+  success;
+  keys;
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
               private route: ActivatedRoute) { }
@@ -19,11 +22,22 @@ export class SignUpComponent implements OnInit {
   onSubmit(form: any): void {
     this._suggestionBoxAubgApiService.registerUser(form.email, form.password, form.confirmPassword)
       .subscribe(
-        response => this.response = response,
-        error => this.response = error,
-        () => console.log(this.response)
-      );
-
+        data => alert(data),
+        error =>{
+          try{
+            try{
+              this.errors = JSON.parse(error._body).ModelState;
+              this.keys = Object.keys(this.errors);
+              this.usernameFlag = true
+            }
+            catch(e){
+              this.errors = JSON.parse(error._body).Message;
+              this.keys = Object.keys(this.errors);
+              this.usernameFlag = false
+            }
+          }
+          catch (e) {this.success = true}
+          })
 
   }
 
