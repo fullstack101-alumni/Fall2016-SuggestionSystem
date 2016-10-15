@@ -32,7 +32,7 @@
         {
             return this.comments.All()
                 .Where(c => c.SuggestionId == id)
-                .OrderBy(c => c.DateCreated)
+                .OrderByDescending(c => c.DateCreated)
                 .Skip(from)
                 .Take(count);
         }
