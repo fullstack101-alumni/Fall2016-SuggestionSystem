@@ -41,8 +41,6 @@ export class SuggestionboxaubgApiService {
   }
 
   addSuggestion(title: string, content: string, isPrivate: boolean, isAnonymous: boolean) {
-    console.log("Private field: " + isPrivate);
-    console.log("Anonymous field: " + isAnonymous);
     return this.http.post(`${this.baseUrl}/api/Suggestions`, {"Title": title, "Content": content,
      "isPrivate": isPrivate, "isAnonymous": isAnonymous}, {headers: new Headers({"Authorize": "Bearer " + localStorage.getItem('access_token')})})
        .map(response => response.json());
