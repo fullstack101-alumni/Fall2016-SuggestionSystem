@@ -1,5 +1,3 @@
-// app.routes.ts
-
 import { Routes, RouterModule } from '@angular/router';
 
 import { SuggestionsComponent } from './suggestions/suggestions.component';

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { Headers } from '@angular/http'
 
 @Injectable()
 export class SuggestionboxaubgApiService {
@@ -12,12 +13,18 @@ export class SuggestionboxaubgApiService {
   }
 
   fetchSuggestions(page: number = 1, itemsPerPage: number = 20, orderBy: string = "DateCreated", onlyMine: boolean = false, onlyUpVoted: boolean = false): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/Suggestions?page=${page}&itemsPerPage=${itemsPerPage}&orderBy=${orderBy}&onlyMine=${onlyMine}&onlyUpVoted=${onlyUpVoted}`)
+    return this.http.get(`${this.baseUrl}/api/Suggestions?page=${page}&itemsPerPage=${itemsPerPage}&orderBy=${orderBy}&onlyMine=${onlyMine}&onlyUpVoted=${onlyUpVoted}`, {headers: new Headers({"Authorize": "Bearerasokdjiaosjdioasjdoiasjdoiasjdoiasdoiasjdoiasjdoiasd"})})
       .map(response => response.json());
   }
 
   registerUser(email: string, password: string, confirmPassword: string){
     return this.http.post(`${this.baseUrl}/api/Account/Register`, {"Email": email, "Password":password, "ConfirmPassword":confirmPassword})
+      .map(response => response.json());
+
+  }
+
+  logInUser(username: string, password: string){
+    return this.http.post(`${this.baseUrl}/Token`, `grant_type=password&username=${username}&password=${password}`, {headers: new Headers({"Content-Type": "application/x-www-form-urlencoded"})})
       .map(response => response.json());
 
   }
