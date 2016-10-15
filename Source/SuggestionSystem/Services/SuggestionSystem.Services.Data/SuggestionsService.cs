@@ -93,7 +93,7 @@
 
             if (orderBy != null)
             {
-                suggestionsToReturn = suggestionsToReturn.OrderBy(s => orderBy);
+                suggestionsToReturn = suggestionsToReturn.OrderByDescending(s => orderBy);
             }
 
             var suggestionsCount = suggestionsToReturn.Count();
