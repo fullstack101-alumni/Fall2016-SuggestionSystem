@@ -17,6 +17,12 @@ export class NewSuggestionComponent implements OnInit {
   }
 
   onSubmit(form: any): void {
+    if (form.private === "") {
+      form.private = false;
+    }
+    if (form.anonymous === "") {
+      form.anonymous = false;
+    }
     this._suggestionBoxAubgApiService.addSuggestion(form.title, form.suggestion, form.private, form.anonymous)
     .subscribe(
       data => this.router.navigateByUrl("/suggestions/1"),
