@@ -5,8 +5,9 @@
     </div>
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="/login">Log in</a></li>
-        <li><a routerLink="/signup">Sign up</a></li>
+        <li *ngIf = "localStorage?.getItem('access_token')"><a routerLink="/login">Log in</a></li>
+        <li *ngIf = "localStorage?.getItem('access_token')"><a routerLink="/signup">Sign up</a></li>
+        <li *ngIf = "!localStorage?.getItem('access_token')"><a routerLing="/">Log out</a></li>
       </ul>
     </div>
   </div>

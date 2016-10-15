@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
 
 @Component({
@@ -13,8 +12,7 @@ export class SignUpComponent implements OnInit {
   success;
   keys;
 
-  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
-              private route: ActivatedRoute) { }
+  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) { }
 
   ngOnInit() {
   }
@@ -23,22 +21,24 @@ export class SignUpComponent implements OnInit {
     this._suggestionBoxAubgApiService.registerUser(form.email, form.password, form.confirmPassword)
       .subscribe(
         data => alert(data),
-        error =>{
-          try{
-            try{
+        error => {
+          try {
+            try {
               this.errors = JSON.parse(error._body).ModelState;
               this.keys = Object.keys(this.errors);
               this.usernameFlag = true
             }
-            catch(e){
+            catch (e) {
               this.errors = JSON.parse(error._body).Message;
               this.keys = Object.keys(this.errors);
               this.usernameFlag = false
             }
           }
-          catch (e) {this.success = true}
-          })
-
+          catch (e) {
+            this.success = true
+          }
+        }
+      )
   }
 
 }
