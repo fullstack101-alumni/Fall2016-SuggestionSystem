@@ -42,7 +42,7 @@ export class SuggestionboxaubgApiService {
 
   addSuggestion(title: string, content: string, isPrivate: boolean, isAnonymous: boolean) {
     return this.http.post(`${this.baseUrl}/api/Suggestions`, {"Title": title, "Content": content,
-     "isPrivate": isPrivate, "isAnonymous": isAnonymous}, {headers: new Headers({"Authorize": "Bearer " + localStorage.getItem('access_token')})})
+     "isPrivate": isPrivate, "isAnonymous": isAnonymous}, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
        .map(response => response.json());
   }
 
