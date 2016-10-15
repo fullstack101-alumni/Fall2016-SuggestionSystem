@@ -7,10 +7,8 @@ import { SuggestionboxaubgApiService } from './suggestionboxaubg-api.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SuggestionsComponent } from './suggestions/suggestions.component';
-import { FooterComponent } from './footer/footer.component';
 import { ItemComponent } from './item/item.component';
 import { NewSuggestionComponent } from './new-suggestion/new-suggestion.component';
-import { CommentComponent } from './comment/comment.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
@@ -20,10 +18,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     AppComponent,
     HeaderComponent,
     SuggestionsComponent,
-    FooterComponent,
     ItemComponent,
     NewSuggestionComponent,
-    CommentComponent,
     LogInComponent,
     SignUpComponent
   ],

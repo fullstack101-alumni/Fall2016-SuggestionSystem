@@ -33,4 +33,23 @@ export class SuggestionboxaubgApiService {
     return this.http.get(`${this.baseUrl}/api/Suggestions/${id}/comments?from=${from}&count=${count}`)
       .map(response => response.json());
   }
+
+
+  postComment(id: number, content: string) {
+    return this.http.post(`${this.baseUrl}/api/Suggestions/${id}/comment`, {"Id": id, "Content": content})
+      .map(response => response.json());
+  }
+
+  addSuggestion(title: string, content: string, isPrivate: boolean, isAnonymous: boolean) {
+    console.log("Private field: " + isPrivate);
+    console.log("Anonymous field: " + isAnonymous);
+    return this.http.post(`${this.baseUrl}/api/Suggestions`, {"Title": title, "Content": content,
+     "isPrivate": isPrivate, "isAnonymous": isAnonymous})
+       .map(response => response.json());
+  }
+
+  vote(id: number, type: number) {
+    return this.http.put(`${this.baseUrl}/api/Suggestions/${id}/vote`, {"Id": id, "Type": type})
+      .map(response => response.json());
+  }
 }

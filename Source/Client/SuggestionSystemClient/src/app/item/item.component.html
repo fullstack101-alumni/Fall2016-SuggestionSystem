@@ -1,26 +1,38 @@
 <div class="panel panel-{{ panelColor }}">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-md-11">
+      <div class="col-md-10">
         <h3 class="panel-title">{{ item.Title }}</h3>
-        <small>Created by: {{ item.Author }} on {{ item.DateCreated }}</small>
+        <small>Created by: {{ item.Author }} on {{ item.DateCreated | date }}</small>
       </div>
-      <div class="col-md-1">
-        <div>
-          {{ item.UpVotesCount }}
-        </div>
-        <div>
-          {{ item.DownVotesCount }}
-        </div>
+      <div class="col-md-2">
+        <ul class="nav nav-pills">
+          <li class="active" (click)="vote(1)"><a><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><span class="badge">{{ item.UpVotesCount }}</span></a></li>
+          <li class="active" (click)="vote(0)"><a><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span><span class="badge" style="background-color:red;">{{ item.DownVotesCount }}</span></a></li>
+        </ul>
       </div>
     </div>
   </div>
   <div class="panel-body">
     {{ item.Content }}
-    <div class="row">
-      <div style="text-align:center;">
-        <small>Comments: {{ item.CommentsCount }}</small>
-      </div>
+    <div class="list-group" style="margin-top:20px;">
+      <a class="list-group-item" *ngFor="let comment of comments">
+        <h4 class="list-group-item-heading">{{ comment.Content }}</h4>
+        <p class="list-group-item-text">{{ comment.Author }} on {{ comment.DateCreated | date}}</p>
+      </a>
+      <a class="list-group-item">
+        <p>
+          <textarea class="form-control" id="comment-content"></textarea>
+        </p>
+        <div class="row">
+          <div class="col-md-offset-11">
+            <button (click)="postComment()" class="btn btn-xs btn-default">Comment</button>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="row" style="text-align:center;">
+      <button (click)="getComments()" class="button btn-xs btn-warning" [disabled]="this.item.CommentsCount - this.comments.length <= 0">Comments: {{ this.item.CommentsCount - this.comments.length }}</button>
     </div>
   </div>
 </div>
