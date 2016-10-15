@@ -31,35 +31,5 @@
                 .ShouldReturn()
                 .Ok();
         }
-
-        [TestMethod]
-        public void UserGetComments()
-        {
-            var comment = new CommentRequestModel();
-            comment.Content = "Some random comment";
-            //controller
-            //    .WithAuthenticatedUser(
-            //    //  usr => usr
-            //    //    .WithIdentifier("User1")
-            //    //    .WithUsername("User1")
-            //    )
-            //    .Calling(c => c.Comment(1, comment))
-            //    .ShouldReturn()
-            //    .Ok()
-            //    ;
-            
-                
-            controller
-                //.WithAuthenticatedUser(usr => usr
-                //    .WithIdentifier("User1")
-                //    .WithUsername("User1"))
-                .Calling(c => c.GetComments(1, 0, 10))
-                .ShouldReturn()
-                .Ok()
-                .WithResponseModelOfType<IQueryable<CommentResponseModel>>()
-                .Passing(c => c.ToList().Count == 2)
-                ;
-            
-        }
     }
 }
