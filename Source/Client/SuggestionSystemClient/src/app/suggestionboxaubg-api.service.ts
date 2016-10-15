@@ -13,7 +13,7 @@ export class SuggestionboxaubgApiService {
   }
 
   fetchSuggestions(page: number = 1, itemsPerPage: number = 20, orderBy: string = "DateCreated", onlyMine: boolean = false, onlyUpVoted: boolean = false): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/Suggestions?page=${page}&itemsPerPage=${itemsPerPage}&orderBy=${orderBy}&onlyMine=${onlyMine}&onlyUpVoted=${onlyUpVoted}`, {headers: new Headers({"Authorize": "Bearerasokdjiaosjdioasjdoiasjdoiasjdoiasdoiasjdoiasjdoiasd"})})
+    return this.http.get(`${this.baseUrl}/api/Suggestions?page=${page}&itemsPerPage=${itemsPerPage}&orderBy=${orderBy}&onlyMine=${onlyMine}&onlyUpVoted=${onlyUpVoted}`, {headers: new Headers({"Authorize": "Bearer " + localStorage.getItem('access_token')})})
       .map(response => response.json());
   }
 
