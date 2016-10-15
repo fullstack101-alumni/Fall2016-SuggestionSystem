@@ -20,7 +20,7 @@ export class SignUpComponent implements OnInit {
   onSubmit(form: any): void {
     this._suggestionBoxAubgApiService.registerUser(form.email, form.password, form.confirmPassword)
       .subscribe(
-        data => alert(data),
+        data => console.log(data),
         error => {
           try {
             try {

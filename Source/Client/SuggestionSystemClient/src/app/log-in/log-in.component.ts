@@ -21,8 +21,10 @@ export class LogInComponent implements OnInit {
       .subscribe(
         data => {
           localStorage.setItem('access_token', data.access_token);
-          this.router.navigateByUrl("/suggestions/1");
-          console.log(data.access_token);
+          localStorage.setItem('roles', data.roles);
+          localStorage.setItem('userName', data.userName);
+
+          this.router.navigateByUrl("suggestions/1");
         },
         error => this.errors = JSON.parse(error._body).error_description
       )

@@ -11,6 +11,7 @@ import { ItemComponent } from './item/item.component';
 import { NewSuggestionComponent } from './new-suggestion/new-suggestion.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignOutComponent } from './sign-out/sign-out.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     ItemComponent,
     NewSuggestionComponent,
     LogInComponent,
-    SignUpComponent
+    SignUpComponent,
+    SignOutComponent
   ],
   imports: [
     BrowserModule,
