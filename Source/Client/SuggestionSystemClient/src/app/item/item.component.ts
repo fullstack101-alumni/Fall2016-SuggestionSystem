@@ -32,7 +32,10 @@ export class ItemComponent implements OnInit {
   postComment() {
     this._suggestionBoxAubgApiService.postComment(this.item.Id, (<HTMLInputElement>document.getElementById("comment-content")).value)
     .subscribe(
-      items => this.comments.push(items),
+      items => {
+        this.comments.push(items);
+        this.item.CommentsCount += 1;
+      },
       error => console.log(error)
     )
   }
