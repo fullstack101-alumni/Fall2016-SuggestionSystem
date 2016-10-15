@@ -1,21 +1,20 @@
-<div class="new-suggestion">
-  <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="bs-component">
+ <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="form-horizontal">
     <div class="form-group">
-      <label class="control-label" for="title">Title</label>
-      <textarea class="form-control" id="title" type="text" placeholder="Suggestion Title" name="title" ngModel>
-      </textarea>
+      <label class="control-label col-md-2" for="title">Title</label>
+      <input class="form-control col-md-10" id="title" type="text" placeholder="Suggestion Title" name="title" ngModel>
+      
     </div>
     <div class="form-group">
-      <label class="control-label" for="suggestion">Suggestion</label>
-      <textarea class="form-control" id="suggestion" type="text" placeholder="Enter your suggestion here" name="suggestion" ngModel>
-      </textarea>
+      <label class="control-label col-md-2" for="suggestion">Suggestion</label>
+      <input class="form-control col-md-10" id="suggestion" type="text" rows=3 placeholder="Enter your suggestion here" name="suggestion" ngModel>
+      
     </div>
     <div class="form-group">
-      <label class="control-label" for="private">Private</label>
+      <label class="control-label col-md-2" for="private">Private</label>
       <input class="form-control" type="checkbox" id="private" checked name="private" ngModel>
     </div>
     <div class="form-group">
-      <label class="control-label" for="anonymous">Anonymous</label>
+      <label class="control-label col-md-2" for="anonymous">Anonymous</label>
       <input class="form-control" type="checkbox" id="anonymous" checked name="anonymous" ngModel>
     </div>
     <div class="form-group">
@@ -26,4 +25,4 @@
       </div>
     </div>
   </form>
-</div>
+
