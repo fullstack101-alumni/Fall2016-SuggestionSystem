@@ -13,7 +13,7 @@ export class SuggestionboxaubgApiService {
   }
 
   fetchSuggestions(page: number = 1, itemsPerPage: number = 20, orderBy: string = "DateCreated", onlyMine: boolean = false, onlyUpVoted: boolean = false): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/Suggestions?page=${page}&itemsPerPage=${itemsPerPage}&orderBy=${orderBy}&onlyMine=${onlyMine}&onlyUpVoted=${onlyUpVoted}`, {headers: new Headers({"Authorize": "Bearer " + localStorage.getItem('access_token')})})
+    return this.http.get(`${this.baseUrl}/api/Suggestions?page=${page}&itemsPerPage=${itemsPerPage}&orderBy=${orderBy}&onlyMine=${onlyMine}&onlyUpVoted=${onlyUpVoted}`, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
       .map(response => response.json());
   }
 
@@ -30,13 +30,13 @@ export class SuggestionboxaubgApiService {
   }
 
   fetchComments(id: number, from: number, count: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/Suggestions/${id}/comments?from=${from}&count=${count}`)
+    return this.http.get(`${this.baseUrl}/api/Suggestions/${id}/comments?from=${from}&count=${count}`, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
       .map(response => response.json());
   }
 
 
   postComment(id: number, content: string) {
-    return this.http.post(`${this.baseUrl}/api/Suggestions/${id}/comment`, {"Id": id, "Content": content})
+    return this.http.post(`${this.baseUrl}/api/Suggestions/${id}/comment`, {"Id": id, "Content": content}, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
       .map(response => response.json());
   }
 
@@ -44,12 +44,12 @@ export class SuggestionboxaubgApiService {
     console.log("Private field: " + isPrivate);
     console.log("Anonymous field: " + isAnonymous);
     return this.http.post(`${this.baseUrl}/api/Suggestions`, {"Title": title, "Content": content,
-     "isPrivate": isPrivate, "isAnonymous": isAnonymous})
+     "isPrivate": isPrivate, "isAnonymous": isAnonymous}, {headers: new Headers({"Authorize": "Bearer " + localStorage.getItem('access_token')})})
        .map(response => response.json());
   }
 
   vote(id: number, type: number) {
-    return this.http.put(`${this.baseUrl}/api/Suggestions/${id}/vote`, {"Id": id, "Type": type})
+    return this.http.put(`${this.baseUrl}/api/Suggestions/${id}/vote`, {"Id": id, "Type": type}, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
       .map(response => response.json());
   }
 }
