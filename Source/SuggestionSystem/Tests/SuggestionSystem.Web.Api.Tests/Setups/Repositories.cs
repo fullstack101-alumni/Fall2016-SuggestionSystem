@@ -75,7 +75,7 @@
                         UpVotesCount = 0,
                         DownVotesCount = 0,
                         CommentsCount = 0
-                    },
+                    }
 
                 }.AsQueryable();
             });
