@@ -1,7 +1,9 @@
- <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="form-horizontal">
+ <div class="container">
+   <h2>New Suggestion</h2>
+   <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="form-horizontal">
     <div class="form-group">
       <label class="control-label col-md-2" for="title">Title</label>
-      <input class="form-control col-md-10" id="title" type="text" placeholder="Suggestion Title" name="title" ngModel>
+      <input class="form-control col-md-10" id="title" type="text" placeholder="Suggestion Title" name="title" required ngModel>
       
     </div>
     <div class="form-group">
@@ -24,5 +26,5 @@
         </span>
       </div>
     </div>
-  </form>
-
+   </form>
+</div>

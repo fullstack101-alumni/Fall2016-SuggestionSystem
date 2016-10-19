@@ -29,7 +29,7 @@
 
             this.suggestions.Add(suggestion);
             this.suggestions.SaveChanges();
-
+            var count = this.suggestions.All().Count();
             return suggestion;
         }
 
@@ -56,7 +56,23 @@
             this.suggestions.SaveChanges();
             return suggestionToUpdate;
         }
-
+        /// <summary>
+        /// Extraction method for suggestions
+        /// </summary>
+        /// <param name="page">Pagination parameter. Counting starts from 1. 
+        /// This parameter has a wide contract i.e. one can pass negative values and they are handles gracefully.</param>
+        /// <param name="itemsPerPage">Controls how many suggestions are returned. 
+        /// The parameter is clammed by the global min and max items per page</param>
+        /// <param name="orderBy">Orders suggestion by the provided member.</param>
+        /// <param name="search">Search for a specific suggestion.</param>
+        /// <param name="status">Returns suggestions with the specified status.
+        /// Otherwise, returns all suggestions</param>
+        /// <param name="onlyMine">Suggestion only of the current user</param>
+        /// <param name="onlyUpVoted">Filter based on up-votes.</param>
+        /// <param name="userId">Suggestions for a specific user id.</param>
+        /// <param name="isAdmin">Flag whether the call is made by an admin.</param>
+        /// <returns> A tuple of a sequence of suggestions and the count of all the suggestions that could be 
+        /// returned by this query.</returns>
         public Tuple<IQueryable<Suggestion>, int> GetSuggestions(int page, int itemsPerPage, string orderBy, string search, string status, bool onlyMine, bool onlyUpVoted, string userId, bool isAdmin)
         {
             var suggestionsToReturn = this.suggestions.All();
