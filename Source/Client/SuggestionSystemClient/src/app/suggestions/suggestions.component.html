@@ -3,18 +3,18 @@
     <div class="col-md-2">
       <div class="checkbox">
         <label>
-          <input type="checkbox" [(ngModel)]="onlyMine" (click)="refreshContent()"> Only mine
+          <input type="checkbox" [(ngModel)]="onlyMine" (click)="refreshContent(true)"> Only mine
         </label>
       </div>
       <div class="checkbox">
         <label>
-          <input type="checkbox" [(ngModel)]="onlyUpVoted" (click)="refreshContent()"> Only up-voted
+          <input type="checkbox" [(ngModel)]="onlyUpVoted" (click)="refreshContent(true)"> Only up-voted
         </label>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
-          <select class="form-control" [(ngModel)]="orderBy" (click)="refreshContent()">
+          <select class="form-control" [(ngModel)]="orderBy" (click)="refreshContent(true)">
             <option ngValue="DateCreated">Date Created</option>
             <option ngValue="UpVotesCount">Most Up Votes</option>
             <option ngValue="DownVotesCount">Most Down Votes</option>
@@ -24,7 +24,7 @@
     </div>
     <div class="col-md-3">
       <div class="form-group">
-        <select class="form-control" [(ngModel)]="status" (click)="refreshContent()">
+        <select class="form-control" [(ngModel)]="status" (click)="refreshContent(true)">
           <option ngValue="">All statuses</option>
           <option ngValue="WaitingForApproval">Waiting For Approval</option>
           <option ngValue="WaitingForApproval">Not Approved</option>
@@ -39,7 +39,7 @@
         <div class="input-group">
           <input type="text" class="form-control" [(ngModel)]="search">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button" (click)="refreshContent()">Search</button>
+            <button class="btn btn-default" type="button" (click)="refreshContent(true)">Search</button>
           </span>
         </div>
       </div>
