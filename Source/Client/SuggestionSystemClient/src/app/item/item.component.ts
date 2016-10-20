@@ -1,15 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
+import { Suggestion } from "../models/suggestion";
+import { Comment } from '../models/comment';
 
 @Component({
   selector: 'item',
   templateUrl: './item.component.html'
 })
+
 export class ItemComponent implements OnInit {
-  @Input() item;
+  @Input() item: Suggestion;
   panelColor: string;
-  comments;
+  comments: Comment[];
   numberOfCommentsToGet: number;
+  commentContent: string;
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) {}
 
@@ -29,11 +33,12 @@ export class ItemComponent implements OnInit {
   }
 
   postComment() {
-    this._suggestionBoxAubgApiService.postComment(this.item.Id, (<HTMLInputElement>document.getElementById("comment-content")).value)
+    this._suggestionBoxAubgApiService.postComment(this.item.Id, this.commentContent)
     .subscribe(
-      items => {
-        this.comments.push(items);
+      item => {
+        this.comments.push(item);
         this.item.CommentsCount += 1;
+        this.commentContent = "";
       },
       error => console.log(error)
     )
