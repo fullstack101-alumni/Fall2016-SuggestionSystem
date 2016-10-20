@@ -12,6 +12,7 @@ import { NewSuggestionComponent } from './new-suggestion/new-suggestion.componen
 import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import { CommentComponent } from './comment/comment.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { SignOutComponent } from './sign-out/sign-out.component';
     NewSuggestionComponent,
     LogInComponent,
     SignUpComponent,
-    SignOutComponent
+    SignOutComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +33,12 @@ import { SignOutComponent } from './sign-out/sign-out.component';
     HttpModule,
     routing
   ],
-  providers: [SuggestionboxaubgApiService],
-  bootstrap: [AppComponent]
+  providers: [
+    SuggestionboxaubgApiService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 
 export class AppModule { }

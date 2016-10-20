@@ -17,12 +17,11 @@
     {{ item.Content }}
     <div class="list-group" style="margin-top:20px;">
       <a class="list-group-item" *ngFor="let comment of comments">
-        <h4 class="list-group-item-heading">{{ comment.Content }}</h4>
-        <p class="list-group-item-text">{{ comment.Author }} on {{ comment.DateCreated | date}}</p>
+        <comment [comment]="comment"></comment>
       </a>
       <a class="list-group-item">
         <p>
-          <textarea class="form-control" id="comment-content"></textarea>
+          <textarea class="form-control" id="comment-content" [(ngModel)]="commentContent"></textarea>
         </p>
         <div class="row">
           <div class="col-md-offset-11">
