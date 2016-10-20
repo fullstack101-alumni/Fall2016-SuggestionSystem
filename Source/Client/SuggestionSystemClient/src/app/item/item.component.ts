@@ -32,6 +32,10 @@ export class ItemComponent implements OnInit {
     );
   }
 
+  hideComments() {
+    this.comments = [];
+  }
+
   postComment() {
     this._suggestionBoxAubgApiService.postComment(this.item.Id, this.commentContent)
     .subscribe(
