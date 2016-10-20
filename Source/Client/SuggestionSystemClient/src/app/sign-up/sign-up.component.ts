@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
+import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
 
 @Component({
   selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  templateUrl: './sign-up.component.html'
 })
 export class SignUpComponent implements OnInit {
   errors;

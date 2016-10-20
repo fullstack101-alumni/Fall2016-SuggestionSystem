@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
+import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
 
 @Component({
   selector: 'app-suggestions',
-  templateUrl: './suggestions.component.html',
-  styleUrls: ['./suggestions.component.scss']
+  templateUrl: './suggestions.component.html'
 })
 
 export class SuggestionsComponent implements OnInit {

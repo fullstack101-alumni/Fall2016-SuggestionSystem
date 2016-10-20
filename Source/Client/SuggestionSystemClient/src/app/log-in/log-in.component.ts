@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
-import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
+import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
 
 @Component({
   selector: 'app-log-in',
-  templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss']
+  templateUrl: './log-in.component.html'
 })
 export class LogInComponent implements OnInit {
   errors;
