@@ -1,6 +1,6 @@
 <div class="container" *ngIf="items">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-2">
       <div class="checkbox">
         <label>
           <input type="checkbox" [(ngModel)]="onlyMine" (click)="refreshContent()"> Only mine
@@ -12,7 +12,29 @@
         </label>
       </div>
     </div>
-    <div class="col-md-4" id="search-box">
+    <div class="col-md-3">
+      <div class="form-group">
+          <select class="form-control" [(ngModel)]="orderBy" (click)="refreshContent()">
+            <option ngValue="DateCreated">Date Created</option>
+            <option ngValue="UpVotesCount">Most Up Votes</option>
+            <option ngValue="DownVotesCount">Most Down Votes</option>
+            <option ngValue="CommentsCount">Most Comments</option>
+          </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="status" (click)="refreshContent()">
+          <option ngValue="">All statuses</option>
+          <option ngValue="WaitingForApproval">Waiting For Approval</option>
+          <option ngValue="WaitingForApproval">Not Approved</option>
+          <option ngValue="WaitingForApproval">Approved</option>
+          <option ngValue="WaitingForApproval">Accepted</option>
+          <option ngValue="WaitingForApproval">Rejected</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4">
       <div class="form-group">
         <div class="input-group">
           <input type="text" class="form-control" [(ngModel)]="search">

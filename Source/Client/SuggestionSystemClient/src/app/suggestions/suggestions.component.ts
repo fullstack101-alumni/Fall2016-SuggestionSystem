@@ -27,7 +27,7 @@ export class SuggestionsComponent implements OnInit {
     this.pages = [];
     this.orderBy = "DateCreated";
     this.search = null;
-    this.status = null;
+    this.status = "";
     this.onlyMine = false;
     this.onlyUpVoted = false;
   }
