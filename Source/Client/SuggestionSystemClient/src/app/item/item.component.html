@@ -32,6 +32,7 @@
     </div>
     <div class="row" style="text-align:center;">
       <button (click)="getComments()" class="button btn-xs btn-warning" [disabled]="this.item.CommentsCount - this.comments.length <= 0">Comments: {{ this.item.CommentsCount - this.comments.length }}</button>
+      <button (click)="hideComments()" class="button btn-xs btn-danger" [disabled]="this.comments.length <= 0">Hide comments</button>
     </div>
   </div>
 </div>
