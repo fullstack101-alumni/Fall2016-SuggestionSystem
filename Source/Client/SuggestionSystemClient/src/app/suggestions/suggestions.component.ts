@@ -52,6 +52,14 @@ export class SuggestionsComponent implements OnInit {
     return this.pages[this.pages.length - 1] == this.currentPage;
   }
 
+  getNextPage() {
+    return Number(this.currentPage) + 1;
+  }
+
+  getPreviousPage() {
+    return Number(this.currentPage) - 1;
+  }
+
   refreshContent() {
     this._suggestionBoxAubgApiService.fetchSuggestions(this.currentPage, this.suggestionsPerPage, this.orderBy, this.search, this.status, this.onlyMine, this.onlyUpVoted)
       .subscribe(
