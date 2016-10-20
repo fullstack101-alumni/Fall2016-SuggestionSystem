@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
 import { Suggestion } from "../models/suggestion";
 
@@ -60,14 +59,19 @@ export class SuggestionsComponent implements OnInit {
     return Number(this.currentPage) - 1;
   }
 
-  refreshContent() {
+  refreshContent(fromFirstPage: boolean = false) {
+    if (fromFirstPage) {
+      this.currentPage = 1;
+    }
+
     this._suggestionBoxAubgApiService.fetchSuggestions(this.currentPage, this.suggestionsPerPage, this.orderBy, this.search, this.status, this.onlyMine, this.onlyUpVoted)
       .subscribe(
         items => {
           this.items = items.Items;
 
+          var pagesCount = Math.ceil(items.ItemsCount / this.suggestionsPerPage) + 1
           var temp = [];
-          for (var i = 1; i < Math.ceil(items.ItemsCount / this.suggestionsPerPage) + 1; i++) {
+          for (var i = 1; i < pagesCount; i++) {
             temp.push(i);
           }
           this.pages = temp;
