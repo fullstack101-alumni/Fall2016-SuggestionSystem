@@ -52,10 +52,10 @@
   </div>
   <div class="row" *ngIf="pages">
     <div class="text-center">
-      <ul class="pagination">
-        <li [class.disabled]="isFirstPage()"><a [routerLink]="isFirstPage() ? '' : ['/suggestions/' + (currentPage - 1)]">&laquo;</a></li>
+      <ul class="pagination" (click)="refreshContent()">
+        <li [class.disabled]="isFirstPage()"><a [routerLink]="isFirstPage() ? ['/suggestions/1'] : ['/suggestions/' + getPreviousPage()]">&laquo;</a></li>
         <li [class.active]="page == currentPage" *ngFor="let page of pages"><a [routerLink]="page == currentPage ? '' : ['/suggestions/' + page]">{{ page }}</a></li>
-        <li [class.disabled]="isLastPage()"><a [routerLink]="isLastPage() ? '' : ['/suggestions/' + (currentPage + 1)]">&raquo;</a></li>
+        <li [class.disabled]="isLastPage()"><a [routerLink]="isLastPage() ? ['/suggestions/' + pages[pages.length - 1]] : ['/suggestions/' + getNextPage()]">&raquo;</a></li>
       </ul>
     </div>
   </div>
