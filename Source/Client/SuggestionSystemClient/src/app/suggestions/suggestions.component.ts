@@ -14,33 +14,34 @@ export class SuggestionsComponent implements OnInit {
   pages: number[];
   currentPage: number;
   suggestionsPerPage: number;
+  orderBy: string;
+  search: string;
+  status: string;
+  onlyMine: boolean;
+  onlyUpVoted: boolean;
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
               private route: ActivatedRoute,
               private router: Router) {
     this.suggestionsPerPage = 10;
     this.pages = [];
+    this.orderBy = "DateCreated";
+    this.search = null;
+    this.status = null;
+    this.onlyMine = false;
+    this.onlyUpVoted = false;
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.currentPage = params['page'];
-
-      if (this.currentPage < 1) this.router.navigate(['/suggestions/1']);
-
-      this._suggestionBoxAubgApiService.fetchSuggestions(this.currentPage)
-        .subscribe(
-          items => {
-            this.items = items.Items;
-
-            var temp = [];
-            for (var i = 1; i < Math.ceil(items.ItemsCount / this.suggestionsPerPage) + 1; i++) {
-              temp.push(i);
-            }
-            this.pages = temp;
-          },
-          error => console.log('Error fetching stories'))
     });
+
+    if (this.currentPage < 1) {
+      this.router.navigate(['/suggestions/1']);
+    }
+
+    this.refreshContent();
   }
 
   isFirstPage() {
@@ -49,5 +50,20 @@ export class SuggestionsComponent implements OnInit {
 
   isLastPage() {
     return this.pages[this.pages.length - 1] == this.currentPage;
+  }
+
+  refreshContent() {
+    this._suggestionBoxAubgApiService.fetchSuggestions(this.currentPage, this.suggestionsPerPage, this.orderBy, this.search, this.status, this.onlyMine, this.onlyUpVoted)
+      .subscribe(
+        items => {
+          this.items = items.Items;
+
+          var temp = [];
+          for (var i = 1; i < Math.ceil(items.ItemsCount / this.suggestionsPerPage) + 1; i++) {
+            temp.push(i);
+          }
+          this.pages = temp;
+        },
+        error => console.log('Error fetching stories'))
   }
 }
