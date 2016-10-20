@@ -62,6 +62,7 @@ export class SuggestionsComponent implements OnInit {
   refreshContent(fromFirstPage: boolean = false) {
     if (fromFirstPage) {
       this.currentPage = 1;
+      this.router.navigate(['/suggestions/1']);
     }
 
     this._suggestionBoxAubgApiService.fetchSuggestions(this.currentPage, this.suggestionsPerPage, this.orderBy, this.search, this.status, this.onlyMine, this.onlyUpVoted)
