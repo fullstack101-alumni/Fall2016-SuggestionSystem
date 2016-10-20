@@ -1,17 +1,11 @@
 ﻿namespace SuggestionSystem.Web.Api.Tests.ServiceTests
 {
-    using Common.Constants;
     using Data.Models;
-    using Data.Repositories;
     using DataTransferModels.Suggestion;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Services.Data;
     using Setups;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     [TestClass]
     public class SuggestionsServiceTests

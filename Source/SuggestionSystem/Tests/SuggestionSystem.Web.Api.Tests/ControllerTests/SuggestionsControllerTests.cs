@@ -1,12 +1,9 @@
 ﻿namespace SuggestionSystem.Web.Api.Tests.ControllerTests
 {
     using Controllers;
-    using DataTransferModels.Comment;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using MyTested.WebApi;
     using Setups;
-    using System.Linq;
-    using System.Net;
 
     [TestClass]
     public class SuggestionsControllerTests
