@@ -110,7 +110,9 @@
   <ItemGroup>
     <Compile Include="ControllerTests\SuggestionsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceTests\CommentServiceTests.cs" />
     <Compile Include="ServiceTests\SuggestionsServiceTests.cs" />
+    <Compile Include="ServiceTests\VoteServiceTests.cs" />
     <Compile Include="Setups\Repositories.cs" />
     <Compile Include="Setups\Services.cs" />
     <Compile Include="TestInit.cs" />
