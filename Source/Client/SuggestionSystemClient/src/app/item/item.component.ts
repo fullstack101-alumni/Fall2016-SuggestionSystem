@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SuggestionboxaubgApiService } from '../suggestionboxaubg-api.service';
+import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
 
 @Component({
   selector: 'item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss']
+  templateUrl: './item.component.html'
 })
 export class ItemComponent implements OnInit {
   @Input() item;

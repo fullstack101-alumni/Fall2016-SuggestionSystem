@@ -3,8 +3,7 @@ import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-sign-out',
-  templateUrl: './sign-out.component.html',
-  styleUrls: ['./sign-out.component.scss']
+  templateUrl: './sign-out.component.html'
 })
 export class SignOutComponent implements OnInit {
 
