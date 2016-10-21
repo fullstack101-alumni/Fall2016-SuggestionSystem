@@ -14,12 +14,13 @@ export class ItemComponent implements OnInit {
   comments: Comment[];
   numberOfCommentsToGet: number;
   commentContent: string;
+  colors: string[];
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) {}
 
   ngOnInit() {
-    var colors: string[] = ["warning", "primary", "default", "success", "danger"];
-    this.panelColor = colors[this.item.Status];
+    this.colors = ["warning", "primary", "default", "success", "danger"];
+    this.panelColor = this.colors[this.item.Status];
     this.numberOfCommentsToGet = 5;
     this.comments = [];
   }
@@ -53,5 +54,16 @@ export class ItemComponent implements OnInit {
         },
         error => console.log("Error voting for a suggestion")
       )
+  }
+
+  ChangeStatus(status) {
+    this._suggestionBoxAubgApiService.ChangeStatus(this.item.Id, status)
+        .subscribe(
+            items => {
+              this.item.Status = items.Status;
+              this.panelColor = this.colors[this.item.Status];
+            },
+            error => console.log("Error changing status for a suggestion")
+        )
   }
 }

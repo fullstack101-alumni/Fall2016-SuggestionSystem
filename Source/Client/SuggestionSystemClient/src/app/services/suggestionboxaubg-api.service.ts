@@ -50,4 +50,9 @@ export class SuggestionboxaubgApiService {
     return this.http.put(`${this.baseUrl}/api/Suggestions/${id}/vote`, {"Id": id, "Type": type}, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
       .map(response => response.json());
   }
+
+  ChangeStatus(id: number, status: number) {
+    return this.http.put(`${this.baseUrl}/api/Suggestions/${id}/changeStatus`, {"Status": status}, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
+        .map(response => response.json());
+  }
 }
