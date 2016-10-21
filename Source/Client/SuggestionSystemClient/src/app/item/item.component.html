@@ -1,9 +1,22 @@
 <div class="panel panel-{{ panelColor }}">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-8">
         <h3 class="panel-title">{{ item.Title }}</h3>
         <small>Created by: {{ item.Author }} on {{ item.DateCreated | date }}</small>
+      </div>
+      <div class="col-md-2">
+        <div class="btn-group">
+          <a class="btn panel-title">Change Status</a>
+          <a class="btn dropdown-toggle panel-title" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li (click)="ChangeStatus(1)"><a>Approved</a></li>
+            <li (click)="ChangeStatus(2)"><a>Not Approved</a></li>
+            <li (click)="ChangeStatus(3)"><a>Accepted</a></li>
+            <li class="divider"></li>
+            <li (click)="ChangeStatus(4)"><a>Rejected</a></li>
+          </ul>
+        </div>
       </div>
       <div class="col-md-2">
         <ul class="nav nav-pills">
