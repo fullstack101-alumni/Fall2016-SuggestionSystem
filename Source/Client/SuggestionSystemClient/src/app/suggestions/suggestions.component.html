@@ -1,12 +1,62 @@
 <div class="container" *ngIf="items">
-  <div *ngFor="let item of items">
-    <item [item]="item"></item>
+  <div class="row">
+    <div class="col-md-2">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" [(ngModel)]="onlyMine" (click)="refreshContent(true)"> Only mine
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" [(ngModel)]="onlyUpVoted" (click)="refreshContent(true)"> Only up-voted
+        </label>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+          <select class="form-control" [(ngModel)]="orderBy" (click)="refreshContent(true)">
+            <option ngValue="DateCreated">Date Created</option>
+            <option ngValue="UpVotesCount">Most Up Votes</option>
+            <option ngValue="DownVotesCount">Most Down Votes</option>
+            <option ngValue="CommentsCount">Most Comments</option>
+          </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="status" (click)="refreshContent(true)">
+          <option ngValue="">All statuses</option>
+          <option ngValue="WaitingForApproval">Waiting For Approval</option>
+          <option ngValue="WaitingForApproval">Not Approved</option>
+          <option ngValue="WaitingForApproval">Approved</option>
+          <option ngValue="WaitingForApproval">Accepted</option>
+          <option ngValue="WaitingForApproval">Rejected</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="search">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" (click)="refreshContent(true)">Search</button>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="text-center">
-    <ul class="pagination">
-      <li [class.disabled]="isFirstPage()"><a [routerLink]="isFirstPage() ? '' : ['/suggestions/' + (currentPage - 1)]">&laquo;</a></li>
-      <li [class.active]="page == currentPage" *ngFor="let page of pages"><a [routerLink]="page == currentPage ? '' : ['/suggestions/' + page]">{{ page }}</a></li>
-      <li [class.disabled]="isLastPage()"><a [routerLink]="isLastPage() ? '' : ['/suggestions/' + (currentPage + 1)]">&raquo;</a></li>
-    </ul>
+  <div class="row">
+    <div *ngFor="let item of items">
+      <item [item]="item"></item>
+    </div>
+  </div>
+  <div class="row" *ngIf="pages">
+    <div class="text-center">
+      <ul class="pagination" (click)="refreshContent()">
+        <li [class.disabled]="isFirstPage()"><a [routerLink]="isFirstPage() ? ['/suggestions/1'] : ['/suggestions/' + getPreviousPage()]">&laquo;</a></li>
+        <li [class.active]="page == currentPage" *ngFor="let page of pages"><a [routerLink]="page == currentPage ? '' : ['/suggestions/' + page]">{{ page }}</a></li>
+        <li [class.disabled]="isLastPage()"><a [routerLink]="isLastPage() ? ['/suggestions/' + pages[pages.length - 1]] : ['/suggestions/' + getNextPage()]">&raquo;</a></li>
+      </ul>
+    </div>
   </div>
 </div>

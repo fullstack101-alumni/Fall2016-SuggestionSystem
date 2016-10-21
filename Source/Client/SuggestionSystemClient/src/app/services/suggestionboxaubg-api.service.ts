@@ -12,8 +12,17 @@ export class SuggestionboxaubgApiService {
     this.baseUrl = 'http://suggestionboxaubg.azurewebsites.net';
   }
 
-  fetchSuggestions(page: number = 1, itemsPerPage: number = 20, orderBy: string = "DateCreated", onlyMine: boolean = false, onlyUpVoted: boolean = false): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/Suggestions?page=${page}&itemsPerPage=${itemsPerPage}&orderBy=${orderBy}&onlyMine=${onlyMine}&onlyUpVoted=${onlyUpVoted}`, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
+  fetchSuggestions(page: number, itemsPerPage: number, orderBy: string, search: string, status: string, onlyMine: boolean, onlyUpVoted: boolean): Observable<any> {
+    var url = this.baseUrl + '/api/Suggestions?';
+    if (page) url += 'page=' + page;
+    if (itemsPerPage) url += '&itemsPerPage=' + itemsPerPage;
+    if (orderBy) url += '&orderBy=' + orderBy;
+    if (search) url += '&search=' + search;
+    if (status) url += '&status=' + status;
+    if (onlyMine) url += '&onlyMine=true';
+    if (onlyUpVoted) url += '&onlyUpVoted=true';
+
+    return this.http.get(url, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
       .map(response => response.json());
   }
 
