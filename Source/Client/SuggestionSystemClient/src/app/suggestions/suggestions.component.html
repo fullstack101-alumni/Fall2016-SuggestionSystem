@@ -50,7 +50,7 @@
       <item [item]="item" (onDeleted)="onDeleted($event)"></item>
     </div>
   </div>
-  <div class="row" *ngIf="pages">
+  <div class="row" *ngIf="items.length">
     <div class="text-center">
       <ul class="pagination" (click)="refreshContent()">
         <li [class.disabled]="isFirstPage()"><a [routerLink]="isFirstPage() ? ['/suggestions/1'] : ['/suggestions/' + getPreviousPage()]">&laquo;</a></li>
