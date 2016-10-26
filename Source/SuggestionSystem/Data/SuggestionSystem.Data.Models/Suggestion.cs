@@ -22,24 +22,20 @@
         public string UserId { get; set; }
 
         public virtual User User { get; set; }
-
-        [Index(IsUnique = true)]
+        
         [Required]
         [MinLength(SuggestionsConstants.TitleMinLength)]
         [MaxLength(SuggestionsConstants.TitleMaxLength)]
         public string Title { get; set; }
-
-        [Index]
+        
         [Required]
         [MinLength(SuggestionsConstants.ContentMinLength)]
         [MaxLength(SuggestionsConstants.ContentMaxLength)]
         public string Content { get; set; }
-
-        [Index]
+        
         [Required]
         public SuggestionStatus Status { get; set; }
-
-        [Index]
+        
         [Required]
         public DateTime DateCreated { get; set; }
 

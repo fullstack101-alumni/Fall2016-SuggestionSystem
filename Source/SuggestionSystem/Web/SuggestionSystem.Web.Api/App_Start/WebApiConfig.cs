@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Serialization;
-
-namespace SuggestionSystem.Web.Api
+﻿namespace SuggestionSystem.Web.Api
 {
+    using System.Web.Http;
+    using Microsoft.Owin.Security.OAuth;
+
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
@@ -25,6 +20,10 @@ namespace SuggestionSystem.Web.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter
+            .SerializerSettings
+            .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
     }
 }
