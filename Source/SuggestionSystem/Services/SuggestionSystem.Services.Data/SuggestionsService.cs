@@ -85,8 +85,9 @@
 
             if (status != null)
             {
+                var statusAsEnum = (SuggestionStatus)Enum.Parse(typeof(SuggestionStatus), status, true);
                 suggestionsToReturn = suggestionsToReturn
-                    .Where(s => s.Status == (SuggestionStatus)Enum.Parse(typeof(SuggestionStatus), status));
+                    .Where(s => s.Status == statusAsEnum);
             }
 
             if (search != null)
