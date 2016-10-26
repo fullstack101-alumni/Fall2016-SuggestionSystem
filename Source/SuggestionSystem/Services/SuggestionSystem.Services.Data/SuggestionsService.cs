@@ -150,6 +150,7 @@
             return suggestionToUpdate;
         }
 
+        // A user is eligible to get suggestion if he is an admin or the suggestion is not private and is Approved or Accepted or Rejected
         public bool UserIsEligibleToGetSuggestion(Suggestion suggestion, bool isAdmin)
         {
             return (isAdmin) ||
@@ -158,6 +159,7 @@
                 suggestion.Status == SuggestionStatus.NotApproved);
         }
 
+        // A user is eligible to modify a suggestion if he is an admin or if the suggestion is made by him and is with status WaitingForApproval
         public bool UserIsEligibleToModifySuggestion(Suggestion suggestion, string userId, bool isAdmin)
         {
             return (isAdmin) ||
