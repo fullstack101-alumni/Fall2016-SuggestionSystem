@@ -104,7 +104,7 @@
             if (onlyUpVoted)
             {
                 suggestionsToReturn = suggestionsToReturn
-                    .Where(s => s.Votes.Where(v => v.Type == VoteType.Up).Select(v => v.UserId).Equals(userId));
+                    .Where(s => s.Votes.Any(v => v.UserId == userId && v.Type == VoteType.Up));
             }
 
             if (orderBy != null)
