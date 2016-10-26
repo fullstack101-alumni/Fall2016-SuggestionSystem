@@ -109,7 +109,7 @@
 
             if (orderBy != null)
             {
-                suggestionsToReturn = suggestionsToReturn.OrderByDescending(s => orderBy);
+                suggestionsToReturn = suggestionsToReturn.OrderBy(orderBy + " DESC, DateCreated DESC");
             }
 
             var suggestionsCount = suggestionsToReturn.Count();
