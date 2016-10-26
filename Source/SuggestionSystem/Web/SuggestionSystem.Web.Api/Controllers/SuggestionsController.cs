@@ -211,7 +211,7 @@
             var newSuggestion = this.suggestions
                 .ChangeSuggestionStatus(suggestion, model);
 
-            return this.Ok(newSuggestion);
+            return this.Ok(Mapper.Map<SuggestionResponseModel>(newSuggestion));
         }
 
         [AllowAnonymous]
