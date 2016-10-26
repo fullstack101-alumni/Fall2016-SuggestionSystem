@@ -9,7 +9,7 @@ export class SuggestionboxaubgApiService {
   baseUrl: string;
 
   constructor(private http: Http) {
-    this.baseUrl = 'http://localhost:54527/';
+    this.baseUrl = 'http://suggestionboxaubg.azurewebsites.net/';
   }
 
   fetchSuggestions(page: number, itemsPerPage: number, orderBy: string, search: string, status: string, onlyMine: boolean, onlyUpVoted: boolean): Observable<any> {
