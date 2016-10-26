@@ -64,4 +64,14 @@ export class SuggestionboxaubgApiService {
     return this.http.put(`${this.baseUrl}/api/Suggestions/${id}/changeStatus`, {"Status": status}, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
         .map(response => response.json());
   }
+
+  deleteSuggestion(id: number) {
+    return this.http.delete(`${this.baseUrl}/api/Suggestions/${id}`, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
+        .map(response => response.json());
+  }
+
+  deleteComment(id: number) {
+    return this.http.delete(`${this.baseUrl}/api/Comments/${id}`, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
+      .map(response => response.json());
+  }
 }
