@@ -47,7 +47,7 @@
   </div>
   <div class="row">
     <div *ngFor="let item of items">
-      <item [item]="item"></item>
+      <item [item]="item" (onDeleted)="onDeleted($event)"></item>
     </div>
   </div>
   <div class="row" *ngIf="pages">

@@ -6,6 +6,12 @@
         <small>Created by: {{ item.Author }} on {{ item.DateCreated | date }}</small>
       </div>
       <div class="col-md-2">
+        <ul class="nav nav-pills">
+          <li class="active" (click)="vote(1)"><a><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><span class="badge">{{ item.UpVotesCount }}</span></a></li>
+          <li class="active" (click)="vote(0)"><a><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span><span class="badge" style="background-color:red;">{{ item.DownVotesCount }}</span></a></li>
+        </ul>
+      </div>
+      <div class="col-md-1">
         <div class="btn-group">
           <a class="btn dropdown-toggle panel-title" data-toggle="dropdown" aria-expanded="false">
             {{ statuses[item.Status] }}
@@ -13,14 +19,11 @@
           </a>
           <ul class="dropdown-menu">
             <li *ngFor="let status of statuses" (click)="ChangeStatus(status)"><a *ngIf="status != statuses[item.Status]">{{ status }}</a></li>
+            <li class="divider"></li>
+            <li (click)="delete()"><a>Delete</a></li>
+            <li (click)="edit()"><a>Edit</a></li>
           </ul>
         </div>
-      </div>
-      <div class="col-md-2">
-        <ul class="nav nav-pills">
-          <li class="active" (click)="vote(1)"><a><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><span class="badge">{{ item.UpVotesCount }}</span></a></li>
-          <li class="active" (click)="vote(0)"><a><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span><span class="badge" style="background-color:red;">{{ item.DownVotesCount }}</span></a></li>
-        </ul>
       </div>
     </div>
   </div>

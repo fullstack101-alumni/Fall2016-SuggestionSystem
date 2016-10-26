@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
 import { Suggestion } from "../models/suggestion";
 import { Comment } from '../models/comment';
@@ -10,6 +10,7 @@ import { Comment } from '../models/comment';
 
 export class ItemComponent implements OnInit {
   @Input() item: Suggestion;
+  @Output() onDeleted = new EventEmitter();
   panelColor: string;
   comments: Comment[];
   numberOfCommentsToGet: number;
@@ -74,5 +75,15 @@ export class ItemComponent implements OnInit {
             },
             error => console.log("Error changing status for a suggestion")
         )
+  }
+
+  delete() {
+    this._suggestionBoxAubgApiService.deleteSuggestion(this.item.Id)
+      .subscribe(
+        items => {
+          console.log(items);
+          this.onDeleted.emit();
+        },
+        error => console.log(error))
   }
 }
