@@ -70,7 +70,7 @@ export class SuggestionsComponent implements OnInit {
         items => {
           this.items = items.Items;
 
-          var pagesCount = Math.ceil(items.ItemsCount / this.suggestionsPerPage) + 1
+          var pagesCount = Math.ceil(items.ItemsCount / this.suggestionsPerPage) + 1;
           var temp = [];
           for (var i = 1; i < pagesCount; i++) {
             temp.push(i);
@@ -78,5 +78,9 @@ export class SuggestionsComponent implements OnInit {
           this.pages = temp;
         },
         error => console.log('Error fetching stories'))
+  }
+
+  onDeleted() {
+    this.refreshContent();
   }
 }
