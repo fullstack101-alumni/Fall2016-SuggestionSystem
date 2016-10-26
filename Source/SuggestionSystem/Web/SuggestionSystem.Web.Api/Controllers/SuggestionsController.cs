@@ -95,7 +95,10 @@
             var newSuggestion = this.suggestions
                 .AddSuggestion(userId, Mapper.Map<Suggestion>(model));
 
-            return this.Ok(Mapper.Map<SuggestionResponseModel>(newSuggestion));
+            var result = Mapper.Map<SuggestionResponseModel>(newSuggestion);
+            result.Author = this.User.Identity.GetUserName();
+
+            return this.Ok(result);
         }
 
         [Authorize]
@@ -125,6 +128,7 @@
                 .UpdateSuggestionCommentsCount(suggestion, suggestion.CommentsCount + 1);
 
             var result = Mapper.Map<CommentResponseModel>(newComment);
+            result.Author = this.User.Identity.GetUserName();
 
             return this.Ok(result);
         }
