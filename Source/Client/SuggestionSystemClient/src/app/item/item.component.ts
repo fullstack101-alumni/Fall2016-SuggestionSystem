@@ -15,11 +15,13 @@ export class ItemComponent implements OnInit {
   numberOfCommentsToGet: number;
   commentContent: string;
   colors: string[];
+  statuses: string[];
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) {}
 
   ngOnInit() {
     this.colors = ["warning", "primary", "default", "success", "danger"];
+    this.statuses = ["WaitingForApproval", "Approved", "NotApproved", "Accepted", "Rejected"];
     this.panelColor = this.colors[this.item.Status];
     this.numberOfCommentsToGet = 5;
     this.comments = [];
@@ -28,8 +30,11 @@ export class ItemComponent implements OnInit {
   getComments() {
     this._suggestionBoxAubgApiService.fetchComments(this.item.Id, this.comments.length, this.numberOfCommentsToGet)
     .subscribe(
-      items => {for(var i=0; i < items.length; i++) this.comments.push(items[i])},
-      error => console.log("Error fetching comments")
+      items => {
+        for(var i=0; i < items.length; i++)
+          this.comments.push(items[i])
+      },
+      error => console.log("Error fetching comments!")
     );
   }
 
@@ -45,7 +50,7 @@ export class ItemComponent implements OnInit {
         this.item.CommentsCount += 1;
         this.commentContent = "";
       },
-      error => console.log(error)
+      error => console.log("Error posting a comment!")
     )
   }
 

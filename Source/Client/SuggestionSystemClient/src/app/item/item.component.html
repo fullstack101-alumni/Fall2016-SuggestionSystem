@@ -7,14 +7,12 @@
       </div>
       <div class="col-md-2">
         <div class="btn-group">
-          <a class="btn panel-title">Change Status</a>
-          <a class="btn dropdown-toggle panel-title" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+          <a class="btn dropdown-toggle panel-title" data-toggle="dropdown" aria-expanded="false">
+            {{ statuses[item.Status] }}
+            <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu">
-            <li (click)="ChangeStatus(1)"><a>Approved</a></li>
-            <li (click)="ChangeStatus(2)"><a>Not Approved</a></li>
-            <li (click)="ChangeStatus(3)"><a>Accepted</a></li>
-            <li class="divider"></li>
-            <li (click)="ChangeStatus(4)"><a>Rejected</a></li>
+            <li *ngFor="let status of statuses" (click)="ChangeStatus(status)"><a *ngIf="status != statuses[item.Status]">{{ status }}</a></li>
           </ul>
         </div>
       </div>
