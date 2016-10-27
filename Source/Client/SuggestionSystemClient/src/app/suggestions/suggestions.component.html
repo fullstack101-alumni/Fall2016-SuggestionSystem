@@ -26,11 +26,7 @@
       <div class="form-group">
         <select class="form-control" [(ngModel)]="status" (click)="refreshContent(true)">
           <option ngValue="">All statuses</option>
-          <option ngValue="WaitingForApproval">Waiting For Approval</option>
-          <option ngValue="WaitingForApproval">Not Approved</option>
-          <option ngValue="WaitingForApproval">Approved</option>
-          <option ngValue="WaitingForApproval">Accepted</option>
-          <option ngValue="WaitingForApproval">Rejected</option>
+          <option *ngFor="let status of statuses" ngValue="{{ status }}">{{ status }}</option>
         </select>
       </div>
     </div>
@@ -47,7 +43,7 @@
   </div>
   <div class="row">
     <div *ngFor="let item of items">
-      <item [item]="item" (onDeleted)="onDeleted($event)"></item>
+      <item [item]="item" [statuses]="statuses" (onChange)="onChange($event)"></item>
     </div>
   </div>
   <div class="row" *ngIf="items.length">

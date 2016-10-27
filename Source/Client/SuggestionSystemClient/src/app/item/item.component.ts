@@ -10,23 +10,16 @@ import { Comment } from '../models/comment';
 
 export class ItemComponent implements OnInit {
   @Input() item: Suggestion;
-  @Output() onDeleted = new EventEmitter();
-  panelColor: string;
-  comments: Comment[];
-  numberOfCommentsToGet: number;
+  @Input() statuses: string[];
+  @Output() onChange = new EventEmitter();
+  comments: Comment[] = [];
+  numberOfCommentsToGet: number = 5;
   commentContent: string;
-  colors: string[];
-  statuses: string[];
+  colors: string[] = ["warning", "primary", "default", "success", "danger"];
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) {}
 
-  ngOnInit() {
-    this.colors = ["warning", "primary", "default", "success", "danger"];
-    this.statuses = ["WaitingForApproval", "Approved", "NotApproved", "Accepted", "Rejected"];
-    this.panelColor = this.colors[this.item.Status];
-    this.numberOfCommentsToGet = 5;
-    this.comments = [];
-  }
+  ngOnInit() {}
 
   getComments() {
     this._suggestionBoxAubgApiService.fetchComments(this.item.Id, this.comments.length, this.numberOfCommentsToGet)
@@ -61,6 +54,7 @@ export class ItemComponent implements OnInit {
         items => {
           this.item.UpVotesCount = items.UpVotesCount;
           this.item.DownVotesCount = items.DownVotesCount;
+          this.onChange.emit();
         },
         error => console.log("Error voting for a suggestion")
       )
@@ -70,8 +64,8 @@ export class ItemComponent implements OnInit {
     this._suggestionBoxAubgApiService.ChangeStatus(this.item.Id, status)
         .subscribe(
             items => {
+              this.onChange.emit();
               this.item.Status = items.Status;
-              this.panelColor = this.colors[this.item.Status];
             },
             error => console.log("Error changing status for a suggestion")
         )
@@ -82,7 +76,7 @@ export class ItemComponent implements OnInit {
       .subscribe(
         items => {
           console.log(items);
-          this.onDeleted.emit();
+          this.onChange.emit();
         },
         error => console.log(error))
   }
