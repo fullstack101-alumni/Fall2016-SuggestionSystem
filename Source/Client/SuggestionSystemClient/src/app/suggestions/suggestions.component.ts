@@ -18,6 +18,7 @@ export class SuggestionsComponent implements OnInit {
   status: string;
   onlyMine: boolean;
   onlyUpVoted: boolean;
+  statuses: string[] = ["WaitingForApproval", "Approved", "NotApproved", "Accepted", "Rejected"];
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
               private route: ActivatedRoute,
@@ -80,7 +81,7 @@ export class SuggestionsComponent implements OnInit {
         error => console.log('Error fetching stories'))
   }
 
-  onDeleted() {
+  onChange() {
     this.refreshContent();
   }
 }
