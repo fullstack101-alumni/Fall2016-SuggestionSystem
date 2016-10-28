@@ -6,10 +6,10 @@
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav navbar-right">
         <li><a routerLink="/new_suggestion">New Suggestion</a></li>
-        <li *ngIf="!isLogged"><a routerLink="/login">Log in</a></li>
-        <li *ngIf="!isLogged"><a routerLink="/signup">Sign up</a></li>
-        <li *ngIf="isLogged"><a>Hello, {{ userName }}</a></li>
-        <li *ngIf="isLogged"><a routerLink="/signout">Log out</a></li>
+        <li *ngIf="!this.userService.isLoggedIn()"><a routerLink="/login">Log in</a></li>
+        <li *ngIf="!this.userService.isLoggedIn()"><a routerLink="/signup">Sign up</a></li>
+        <li *ngIf="this.userService.isLoggedIn()"><a>Hello, SLOJI IME</a></li>
+        <li *ngIf="this.userService.isLoggedIn()" (click)="logOut()"><a routerLink="">Log out</a></li>
       </ul>
     </div>
   </div>
