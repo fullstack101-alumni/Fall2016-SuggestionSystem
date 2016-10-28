@@ -6,13 +6,15 @@ import 'rxjs/add/operator/map';
 export class UserService {
   private loggedIn: boolean = false;
   private userName: string = null;
-  private baseUrl;
+  private roles: string[];
+  private baseUrl: string;
 
   constructor(private http: Http) {
     this.baseUrl = 'http://suggestionboxaubg.azurewebsites.net';
 
     this.loggedIn = !!localStorage.getItem('access_token');
     this.userName = localStorage.getItem('user_name') || null;
+    this.roles = localStorage.getItem('roles') ? localStorage.getItem('roles').split(',') : [];
   }
 
   login(username: string, password: string) {
@@ -27,9 +29,11 @@ export class UserService {
       .map((res) => {
         localStorage.setItem('access_token', res.access_token);
         localStorage.setItem('user_name', res.userName);
+        localStorage.setItem('roles', res.roles);
 
         this.loggedIn = true;
         this.userName = res.userName;
+        this.roles = res.roles.split(',');
 
         return res;
       });
@@ -38,9 +42,11 @@ export class UserService {
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_name');
+    localStorage.removeItem('roles');
 
     this.loggedIn = false;
     this.userName = null;
+    this.roles = [];
   }
 
   register(email: string, password: string, confirmPassword: string){
@@ -55,5 +61,9 @@ export class UserService {
 
   getUserName() {
     return this.userName;
+  }
+
+  isInRole(role: string) {
+    return this.roles.indexOf(role) != -1;
   }
 }
