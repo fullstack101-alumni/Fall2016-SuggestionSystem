@@ -2,13 +2,14 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
 import { Suggestion } from "../models/suggestion";
 import { Comment } from '../models/comment';
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'item',
   templateUrl: './item.component.html'
 })
 
-export class ItemComponent implements OnInit {
+export class ItemComponent {
   @Input() item: Suggestion;
   @Input() statuses: string[];
   @Output() onChange = new EventEmitter();
@@ -17,9 +18,8 @@ export class ItemComponent implements OnInit {
   commentContent: string;
   colors: string[] = ["warning", "primary", "default", "success", "danger"];
 
-  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) {}
-
-  ngOnInit() {}
+  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
+              private userService: UserService) {}
 
   getComments() {
     this._suggestionBoxAubgApiService.fetchComments(this.item.Id, this.comments.length, this.numberOfCommentsToGet)

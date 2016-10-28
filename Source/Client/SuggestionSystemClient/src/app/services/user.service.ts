@@ -11,7 +11,7 @@ export class UserService {
   constructor(private http: Http) {
     this.baseUrl = 'http://suggestionboxaubg.azurewebsites.net';
 
-    this.loggedIn = !!localStorage.getItem('auth_token');
+    this.loggedIn = !!localStorage.getItem('access_token');
     this.userName = localStorage.getItem('user_name') || null;
   }
 
@@ -25,7 +25,7 @@ export class UserService {
         { headers })
       .map(res => res.json())
       .map((res) => {
-        localStorage.setItem('auth_token', res.access_token);
+        localStorage.setItem('access_token', res.access_token);
         localStorage.setItem('user_name', res.userName);
 
         this.loggedIn = true;
@@ -36,7 +36,7 @@ export class UserService {
   }
 
   logout() {
-    localStorage.removeItem('auth_token');
+    localStorage.removeItem('access_token');
     localStorage.removeItem('user_name');
 
     this.loggedIn = false;

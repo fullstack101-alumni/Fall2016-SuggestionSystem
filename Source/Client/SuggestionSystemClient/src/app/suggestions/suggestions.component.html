@@ -1,6 +1,6 @@
 <div class="container" *ngIf="items">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2" *ngIf="this.userService.isLoggedIn()">
       <div class="checkbox">
         <label>
           <input type="checkbox" [(ngModel)]="onlyMine" (click)="refreshContent(true)"> Only mine
@@ -12,7 +12,7 @@
         </label>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" [class.col-md-offset-2]="!this.userService.isLoggedIn()">
       <div class="form-group">
           <select class="form-control" [(ngModel)]="orderBy" (click)="refreshContent(true)">
             <option ngValue="DateCreated">Date Created</option>
