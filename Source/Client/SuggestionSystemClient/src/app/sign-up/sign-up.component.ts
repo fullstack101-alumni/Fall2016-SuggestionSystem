@@ -1,43 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
+import { Router } from '@angular/router'
+import { UserService } from "../services/user.service";
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html'
 })
-export class SignUpComponent implements OnInit {
-  errors;
-  usernameFlag;
-  success;
-  keys;
+export class SignUpComponent {
 
-  constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService) { }
-
-  ngOnInit() {
-  }
+  constructor(private userService:UserService,
+              private router: Router) { }
 
   onSubmit(form: any): void {
-    this._suggestionBoxAubgApiService.registerUser(form.email, form.password, form.confirmPassword)
+    this.userService.register(form.email, form.password, form.confirmPassword)
       .subscribe(
-        data => console.log(data),
-        error => {
-          try {
-            try {
-              this.errors = JSON.parse(error._body).ModelState;
-              this.keys = Object.keys(this.errors);
-              this.usernameFlag = true
-            }
-            catch (e) {
-              this.errors = JSON.parse(error._body).Message;
-              this.keys = Object.keys(this.errors);
-              this.usernameFlag = false
-            }
-          }
-          catch (e) {
-            this.success = true
-          }
-        }
+        data => this.router.navigate(['/login']),
+        error => console.log(error)
       );
   }
-
 }
