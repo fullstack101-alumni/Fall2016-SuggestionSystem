@@ -5,13 +5,13 @@
         <h3 class="panel-title">{{ item.Title }}</h3>
         <small>Created by: {{ item.Author }} on {{ item.DateCreated | date }}</small>
       </div>
-      <div class="col-md-2" *ngIf="this.userService.isLoggedIn()">
+      <div class="col-md-2 text-right" *ngIf="this.userService.isLoggedIn()">
         <ul class="nav nav-pills">
           <li class="active" (click)="vote(1)"><a><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><span class="badge">{{ item.UpVotesCount }}</span></a></li>
           <li class="active" (click)="vote(0)"><a><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span><span class="badge" style="background-color:red;">{{ item.DownVotesCount }}</span></a></li>
         </ul>
       </div>
-      <div class="col-md-1" *ngIf="this.userService.isLoggedIn()">
+      <div class="col-md-2 text-right" *ngIf="this.userService.isInRole('Admin')">
         <div class="btn-group">
           <a class="btn dropdown-toggle panel-title" data-toggle="dropdown" aria-expanded="false">
             {{ statuses[item.Status] }}
@@ -24,6 +24,9 @@
             <li (click)="edit()"><a>Edit</a></li>
           </ul>
         </div>
+      </div>
+      <div class="col-md-2 col-md-offset-2 text-right" *ngIf="!this.userService.isInRole('Admin')">
+        {{ statuses[item.Status] }}
       </div>
     </div>
   </div>
