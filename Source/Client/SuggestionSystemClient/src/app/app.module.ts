@@ -13,6 +13,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { CommentComponent } from './comment/comment.component';
+import { UserService } from "./services/user.service.ts";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { CommentComponent } from './comment/comment.component';
     routing
   ],
   providers: [
-    SuggestionboxaubgApiService
+    SuggestionboxaubgApiService,
+    UserService
   ],
   bootstrap: [
     AppComponent

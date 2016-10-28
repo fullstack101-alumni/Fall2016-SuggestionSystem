@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from "../services/user.service.ts";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent implements OnInit {
-  isLogged: boolean;
-  userName: string;
+export class HeaderComponent {
+  constructor(private userService: UserService) { }
 
-  constructor() { }
-
-  ngOnInit() {
-    this.userName = localStorage.getItem('userName');
-    this.isLogged = this.userName !== null;
+  logOut() {
+    this.userService.logout();
   }
 }
