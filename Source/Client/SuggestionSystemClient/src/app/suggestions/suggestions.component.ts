@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuggestionboxaubgApiService } from '../services/suggestionboxaubg-api.service.ts';
 import { Suggestion } from "../models/suggestion";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-suggestions',
@@ -21,6 +22,7 @@ export class SuggestionsComponent implements OnInit {
   statuses: string[] = ["WaitingForApproval", "Approved", "NotApproved", "Accepted", "Rejected"];
 
   constructor(private _suggestionBoxAubgApiService:SuggestionboxaubgApiService,
+              private userService: UserService,
               private route: ActivatedRoute,
               private router: Router) {
     this.suggestionsPerPage = 10;
