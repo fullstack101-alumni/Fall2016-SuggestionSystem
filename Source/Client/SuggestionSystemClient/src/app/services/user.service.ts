@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
@@ -36,12 +37,16 @@ export class UserService {
 
   logout() {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_name');
+
     this.loggedIn = false;
+    this.userName = null;
   }
 
-  registerUser(email: string, password: string, confirmPassword: string){
-    return this.http.post(`${this.baseUrl}/api/Account/Register`, {"Email": email, "Password":password, "ConfirmPassword":confirmPassword})
-      .map(response => response.json());
+  register(email: string, password: string, confirmPassword: string){
+    return this.http
+      .post(`${this.baseUrl}/api/Account/Register`,
+        {"Email": email, "Password":password, "ConfirmPassword":confirmPassword});
   }
 
   isLoggedIn() {
