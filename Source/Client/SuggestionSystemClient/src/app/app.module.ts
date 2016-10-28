@@ -11,7 +11,6 @@ import { ItemComponent } from './item/item.component';
 import { NewSuggestionComponent } from './new-suggestion/new-suggestion.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { SignOutComponent } from './sign-out/sign-out.component';
 import { CommentComponent } from './comment/comment.component';
 import { UserService } from "./services/user.service.ts";
 
@@ -25,7 +24,6 @@ import { UserService } from "./services/user.service.ts";
     NewSuggestionComponent,
     LogInComponent,
     SignUpComponent,
-    SignOutComponent,
     CommentComponent
   ],
   imports: [
