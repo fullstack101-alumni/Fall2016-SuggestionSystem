@@ -26,18 +26,6 @@ export class SuggestionboxaubgApiService {
       .map(response => response.json());
   }
 
-  registerUser(email: string, password: string, confirmPassword: string){
-    return this.http.post(`${this.baseUrl}/api/Account/Register`, {"Email": email, "Password":password, "ConfirmPassword":confirmPassword})
-      .map(response => response.json());
-
-  }
-
-  logInUser(username: string, password: string){
-    return this.http.post(`${this.baseUrl}/Token`, `grant_type=password&username=${username}&password=${password}`, {headers: new Headers({"Content-Type": "application/x-www-form-urlencoded"})})
-      .map(response => response.json());
-
-  }
-
   fetchComments(id: number, from: number, count: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/Suggestions/${id}/comments?from=${from}&count=${count}`, {headers: new Headers({"Authorization": "Bearer " + localStorage.getItem('access_token')})})
       .map(response => response.json());
